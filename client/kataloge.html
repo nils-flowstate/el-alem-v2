@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kataloge | El-Âlem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        'art-black': '#1a1a1a',
+                        'art-gray': '#f5f5f5',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white pt-24">
+    <!-- Nav -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-2 px-6 md:px-12 flex justify-between items-center text-black">
+        <a href="/" class="text-2xl font-serif tracking-widest font-bold uppercase">El-Âlem</a>
+        <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
+            <a href="/#about" class="hover:text-gray-500 transition-colors">Über Mich</a>
+            <a href="/werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
+            <a href="/kataloge.html" class="text-black font-bold">Kataloge</a>
+            <a href="/#contact" class="hover:text-gray-500 transition-colors">Kontakt</a>
+        </div>
+        <a href="/#contact" class="border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all">Anfrage</a>
+    </nav>
+
+    <main class="py-12 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2">Publikationen</span>
+            <h1 class="text-4xl md:text-5xl font-serif mb-6">Kataloge & Texte</h1>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12" id="catalogues-list">
+            <!-- JS will inject here if needed, but we can hardcode for prototype using site.js logic or specific script -->
+            <!-- Actually, let's use site.js to populate this if we want consistency, but simple hardcoded links to katalog.html?id=... work too -->
+            
+            <a href="katalog.html?id=c1" class="group block cursor-pointer">
+                <div class="relative aspect-[3/4] bg-gray-100 mb-6 shadow-lg group-hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2">
+                    <img src="/uploads/art_catalogue_book_c_697661d0.jpg" class="w-full h-full object-cover" alt="Cover">
+                    <div class="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors"></div>
+                </div>
+                <h3 class="text-xl font-serif text-center group-hover:text-gray-600 transition-colors">Retrospektive 2020-2024</h3>
+            </a>
+
+            <a href="katalog.html?id=c2" class="group block cursor-pointer">
+                <div class="relative aspect-[3/4] bg-gray-100 mb-6 shadow-lg group-hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2">
+                    <img src="/uploads/art_catalogue_book_c_da631099.jpg" class="w-full h-full object-cover" alt="Cover">
+                    <div class="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors"></div>
+                </div>
+                <h3 class="text-xl font-serif text-center group-hover:text-gray-600 transition-colors">Ausstellung "Licht"</h3>
+            </a>
+        </div>
+    </main>
+
+    <footer class="mt-24 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider">
+        &copy; 2026 El-Âlem. <a href="/" class="ml-4 hover:text-black">Home</a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | El-Âlem Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/style.css">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-black text-gray-400 flex flex-col flex-shrink-0">
+        <div class="p-6">
+            <h1 class="text-xl text-white font-serif tracking-widest uppercase">El-Âlem<br><span class="text-xs text-gray-500 normal-case tracking-normal">Admin Panel</span></h1>
+        </div>
+        
+        <nav class="flex-1 px-4 space-y-2 py-4">
+            <a href="#dashboard" class="block px-4 py-3 rounded hover:bg-white/5 hover:text-white transition-colors flex items-center gap-3">
+                <i class="ph ph-squares-four text-lg"></i> Übersicht
+            </a>
+            <a href="#works" class="block px-4 py-3 rounded hover:bg-white/5 hover:text-white transition-colors flex items-center gap-3">
+                <i class="ph ph-paint-brush text-lg"></i> Werke
+            </a>
+            <a href="#series" class="block px-4 py-3 rounded hover:bg-white/5 hover:text-white transition-colors flex items-center gap-3">
+                <i class="ph ph-stack text-lg"></i> Serien
+            </a>
+            <a href="#texts" class="block px-4 py-3 rounded hover:bg-white/5 hover:text-white transition-colors flex items-center gap-3">
+                <i class="ph ph-article text-lg"></i> Texte & Kataloge
+            </a>
+            <a href="#requests" class="block px-4 py-3 rounded hover:bg-white/5 hover:text-white transition-colors flex items-center gap-3">
+                <i class="ph ph-envelope-simple text-lg"></i> Anfragen
+            </a>
+        </nav>
+        
+        <div class="p-4 border-t border-white/10">
+            <a href="/" class="block px-4 py-2 text-sm text-gray-500 hover:text-white transition-colors">Website öffnen</a>
+            <button onclick="sessionStorage.clear(); window.location.href='/admin/login.html'" class="mt-2 w-full text-left px-4 py-2 text-sm text-red-400 hover:text-red-300 transition-colors">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto p-8 md:p-12 relative">
+        <div id="content" class="max-w-6xl mx-auto">
+            <!-- Content rendered by JS -->
+        </div>
+    </main>
+
+    <script src="/assets/admin.js"></script>
+</body>
+</html>

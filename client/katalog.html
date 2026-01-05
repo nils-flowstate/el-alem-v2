@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Ansicht | El-Âlem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 pt-24 h-screen flex flex-col">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-2 px-6 md:px-12 flex justify-between items-center text-black">
+        <a href="/" class="text-2xl font-serif tracking-widest font-bold uppercase">El-Âlem</a>
+        <a href="/kataloge.html" class="text-xs tracking-widest uppercase hover:text-gray-500 transition-colors flex items-center">
+            <i class="ph ph-arrow-left mr-2"></i> Zurück
+        </a>
+    </nav>
+
+    <main class="flex-1 flex items-center justify-center p-6">
+        <div id="flipbook-container" class="w-full max-w-4xl">
+            <!-- Rendered by JS -->
+            <div class="text-center text-gray-400 animate-pulse">Lade Katalog...</div>
+        </div>
+    </main>
+
+    <script src="/assets/flipbook.js"></script>
+    <script>
+        // Init Mock Flipbook
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            
+            // Mock Data for pages
+            // In a real app, this would come from the DB/PDF
+            const MOCK_PAGES = [
+                { type: 'image', src: id === 'c2' ? '/uploads/art_catalogue_book_c_da631099.jpg' : '/uploads/art_catalogue_book_c_697661d0.jpg' },
+                { type: 'text', title: 'Vorwort', text: 'Kunst ist nicht nur das, was wir sehen, sondern das, was wir fühlen. Diese Sammlung repräsentiert eine Reise durch Licht und Schatten.' },
+                { type: 'image', src: '/uploads/abstract_oil_paintin_51924054.jpg' },
+                { type: 'text', title: 'Stille im Sturm', text: 'Öl auf Leinwand, 2024. <br><br>Ein Werk, das die Ruhe im Chaos sucht. Die Farben verschwimmen wie Erinnerungen an einen Traum.' },
+                { type: 'image', src: '/uploads/light_art_installati_14dd2f58.jpg' },
+                { type: 'text', title: 'Neon Pulse', text: 'Lichtinstallation, 2025. <br><br>Der Puls der Stadt, eingefangen in Röhren aus Licht. Kalt und doch voller Energie.' },
+                { type: 'text', title: 'Impressum', text: 'Herausgegeben von El-Âlem.<br>Druck: Kunstverlag Berlin<br>2026' },
+                { type: 'image', src: id === 'c2' ? '/uploads/art_catalogue_book_c_da631099.jpg' : '/uploads/art_catalogue_book_c_697661d0.jpg' } // Back cover
+            ];
+
+            new Flipbook('flipbook-container', MOCK_PAGES);
+        });
+    </script>
+</body>
+</html>

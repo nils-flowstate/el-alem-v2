@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serie | El-Âlem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/assets/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        'art-black': '#1a1a1a',
+                        'art-gray': '#f5f5f5',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white pt-24">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-2 px-6 md:px-12 flex justify-between items-center text-black">
+        <a href="/" class="text-2xl font-serif tracking-widest font-bold uppercase">El-Âlem</a>
+        <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
+            <a href="/#about" class="hover:text-gray-500 transition-colors">Über Mich</a>
+            <a href="/werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
+            <a href="/#catalogues" class="hover:text-gray-500 transition-colors">Kataloge</a>
+            <a href="/#contact" class="hover:text-gray-500 transition-colors">Kontakt</a>
+        </div>
+        <a href="/#contact" class="border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all">Anfrage</a>
+    </nav>
+
+    <div id="serie-detail" class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-4">Serie</span>
+            <h1 id="serie-title" class="text-5xl md:text-7xl font-serif mb-6">Loading...</h1>
+            <p id="serie-meta" class="text-sm tracking-widest text-gray-500 uppercase mb-8"></p>
+            <div class="w-12 h-1 bg-black mx-auto mb-8"></div>
+            <p id="serie-desc" class="text-gray-600 leading-relaxed text-lg"></p>
+        </div>
+
+        <div id="serie-works-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <!-- JS Renders here -->
+        </div>
+        
+        <div class="mt-24 text-center">
+            <a href="/#contact" class="bg-black text-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
+                Serie Anfragen
+            </a>
+        </div>
+    </div>
+
+    <footer class="mt-24 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider">
+        &copy; 2026 El-Âlem. <a href="/" class="ml-4 hover:text-black">Home</a>
+    </footer>
+
+    <script src="/assets/site.js"></script>
+</body>
+</html>
