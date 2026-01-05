@@ -20,8 +20,8 @@ const SEED_DATA = {
         { id: 's2', title: 'Luminous Dreams', category: 'Lichtkunst', year: '2024-2025', technique: 'Licht & Raum', count: 4, visible: true, description: 'Licht als skulpturales Element, das den Raum neu definiert.' }
     ],
     catalogues: [
-        { id: 'c1', title: 'Retrospektive 2020-2024', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, pdf: '#' },
-        { id: 'c2', title: 'Ausstellung "Licht"', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, pdf: '#' }
+        { id: 'c1', title: 'Re-Integration', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, pdf: '/uploads/re-integration.pdf' },
+        { id: 'c2', title: 'Gedichte 2016', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, pdf: '/uploads/poem.pdf' }
     ],
     artist: {
         portrait: '/uploads/older_male_artist_po_bd6859aa.jpg',
@@ -81,55 +81,109 @@ const UI = {
         if (document.getElementById('all-works-grid')) UI.renderAllWorks();
         if (document.getElementById('serie-detail')) UI.renderSerieDetail();
         if (document.getElementById('werk-detail')) UI.renderWerkDetail();
+        
+        // Signature injection in footer if exists
+        const footerSig = document.getElementById('footer-signature');
+        if(footerSig) footerSig.src = '/assets/signature.png';
     },
 
     setupNavigation: () => {
         const nav = document.querySelector('nav');
         if(!nav) return;
-        window.addEventListener('scroll', () => {
+        
+        const updateNav = () => {
             if (window.scrollY > 50) {
-                nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-2');
-                nav.classList.remove('py-6', 'bg-transparent');
-                
-                // If text was white (on landing page), make it black now if background is white
-                // This logic is a bit tricky if we have mixed pages (some header dark, some light)
-                // For now, let's assume specific styling per page or just mix-blend-difference
+                nav.classList.add('nav-scrolled');
+                nav.classList.remove('py-6', 'text-white', 'mix-blend-difference');
+                nav.classList.add('text-black');
             } else {
-                nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-2');
-                nav.classList.add('py-6', 'bg-transparent');
+                nav.classList.remove('nav-scrolled', 'text-black');
+                nav.classList.add('py-6', 'text-white', 'mix-blend-difference');
             }
-        });
+        };
+
+        window.addEventListener('scroll', updateNav);
+        // Init state check
+        if(window.scrollY > 50) updateNav();
     },
 
-    // ... (Previous Renderers: Hero, NewWorks, Spotlight, Catalogues, ContactForm) ... 
-    // I will include them here to ensure the file is complete and correct.
-    
     renderHero: () => {
         const works = DB.getWorks().filter(w => w.featured).slice(0, 5);
         const container = document.getElementById('hero-slideshow');
         
-        let html = works.map((w, i) => `
+        // Hero HTML Structure with controls
+        let slidesHtml = works.map((w, i) => `
             <div class="slide absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}" data-index="${i}">
-                <div class="absolute inset-0 bg-black/20 z-10"></div>
-                <img src="${w.image}" class="w-full h-full object-cover animate-slow-zoom" alt="${w.title}">
-                <div class="absolute bottom-12 left-6 md:bottom-24 md:left-24 z-20 text-white max-w-xl">
+                <div class="absolute inset-0 bg-black/30 z-10"></div>
+                ${w.video 
+                  ? `<video src="${w.video}" class="w-full h-full object-cover" autoplay muted loop playsinline></video>`
+                  : `<img src="${w.image}" class="w-full h-full object-cover animate-slow-zoom" alt="${w.title}">`
+                }
+                <div class="absolute bottom-24 left-6 md:left-24 z-20 text-white max-w-xl pointer-events-none">
                     <p class="text-sm md:text-base tracking-widest uppercase mb-2 font-light opacity-90">${w.category} | ${w.year}</p>
                     <h2 class="text-4xl md:text-6xl font-serif font-light mb-4 leading-tight">${w.title}</h2>
-                    <a href="werk.html?id=${w.id}" class="inline-block border border-white/50 hover:bg-white hover:text-black px-6 py-2 transition-all duration-300 text-sm tracking-wider">WERK ANSEHEN</a>
+                    <a href="werk.html?id=${w.id}" class="inline-block border border-white/50 hover:bg-white hover:text-black px-6 py-2 transition-all duration-300 text-sm tracking-wider pointer-events-auto">WERK ANSEHEN</a>
                 </div>
             </div>
         `).join('');
-        container.innerHTML = html;
+
+        // Controls
+        const controlsHtml = `
+            <div class="absolute bottom-8 right-8 z-30 flex items-center space-x-6 text-white">
+                 <button id="hero-pause" class="hover:text-gray-300 transition-colors">
+                    <i class="ph ph-pause text-2xl" id="pause-icon"></i>
+                </button>
+                <button id="hero-next" class="group flex items-center space-x-2 text-sm tracking-widest hover:text-gray-300 transition-colors">
+                    <span>NÄCHSTES WERK</span>
+                    <i class="ph ph-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+        `;
         
+        container.innerHTML = slidesHtml + controlsHtml;
+
+        // Logic
         let current = 0;
+        let playing = true;
         const slides = container.querySelectorAll('.slide');
-        setInterval(() => {
+        let interval;
+
+        const nextSlide = () => {
             slides[current].classList.remove('opacity-100', 'z-10');
             slides[current].classList.add('opacity-0', 'z-0');
+            
             current = (current + 1) % slides.length;
+            
             slides[current].classList.remove('opacity-0', 'z-0');
             slides[current].classList.add('opacity-100', 'z-10');
-        }, 5000);
+        };
+
+        const startInterval = () => {
+            interval = setInterval(nextSlide, 5000);
+        };
+
+        startInterval();
+
+        // Listeners
+        document.getElementById('hero-next').addEventListener('click', () => {
+            clearInterval(interval);
+            nextSlide();
+            if(playing) startInterval();
+        });
+
+        document.getElementById('hero-pause').addEventListener('click', () => {
+            playing = !playing;
+            const icon = document.getElementById('pause-icon');
+            if (playing) {
+                icon.classList.remove('ph-play');
+                icon.classList.add('ph-pause');
+                startInterval();
+            } else {
+                icon.classList.remove('ph-pause');
+                icon.classList.add('ph-play');
+                clearInterval(interval);
+            }
+        });
     },
 
     renderNewWorks: () => {
@@ -192,6 +246,9 @@ const UI = {
                     </div>
                 </div>
                 <h3 class="text-lg font-serif text-center">${c.title}</h3>
+                <div class="text-center mt-2">
+                    <a href="${c.pdf}" target="_blank" class="text-xs uppercase tracking-widest text-gray-400 hover:text-black">Download PDF</a>
+                </div>
             </div>
         `).join('');
     },
@@ -230,20 +287,37 @@ const UI = {
     renderAllWorks: () => {
         const works = DB.getWorks();
         const container = document.getElementById('all-works-grid');
-        container.innerHTML = works.map(w => UI.createWorkCard(w)).join('');
         
-        // Simple Filter
+        // If works are empty, show something? 
+        // We will default render all
+        
+        const render = (items) => {
+             container.innerHTML = items.map(w => UI.createWorkCard(w)).join('');
+        };
+        
+        render(works);
+        
+        // Subcategories / Series Filter
+        const series = DB.getSeries();
+        const subNav = document.getElementById('series-subnav');
+        if(subNav) {
+             // Create subnav for series if needed. User asked for "Gemälde haben eigene Serien".
+             // We can render list of series buttons dynamically based on selected category filter
+        }
+
+        // Main Filter Logic
         const buttons = document.querySelectorAll('.filter-btn');
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
+                // Active State
                 buttons.forEach(b => b.classList.remove('text-black', 'border-black'));
                 buttons.forEach(b => b.classList.add('text-gray-400', 'border-transparent'));
                 btn.classList.add('text-black', 'border-black');
                 btn.classList.remove('text-gray-400', 'border-transparent');
                 
                 const filter = btn.dataset.filter;
-                const filteredWorks = filter === 'all' ? works : works.filter(w => w.category === filter);
-                container.innerHTML = filteredWorks.map(w => UI.createWorkCard(w)).join('');
+                let filteredWorks = filter === 'all' ? works : works.filter(w => w.category === filter);
+                render(filteredWorks);
             });
         });
     },
@@ -280,7 +354,14 @@ const UI = {
         }
 
         // Render Detail
-        document.getElementById('werk-image').src = work.image;
+        if(work.video) {
+             document.getElementById('werk-image-container').innerHTML = `
+                <video src="${work.video}" controls class="w-full h-auto max-h-[85vh] mx-auto shadow-sm"></video>
+             `;
+        } else {
+             document.getElementById('werk-image').src = work.image;
+        }
+        
         document.getElementById('werk-title').innerText = work.title;
         document.getElementById('werk-meta').innerHTML = `
             <div class="space-y-2 text-sm text-gray-500">

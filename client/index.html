@@ -35,14 +35,18 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center text-white mix-blend-difference">
-        <a href="/" class="text-2xl font-serif tracking-widest font-bold uppercase">El-Âlem</a>
+        <a href="/" class="flex items-center gap-4">
+             <img src="/assets/signature.png" class="nav-logo-img" alt="El-Âlem Signature">
+             <!-- Optional Text Fallback if needed, but Signature is requested -->
+             <!-- <span class="text-2xl font-serif tracking-widest font-bold uppercase hidden md:block">El-Âlem</span> -->
+        </a>
         <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
-            <a href="#about" class="hover:text-gray-300 transition-colors">Über Mich</a>
-            <a href="#works" class="hover:text-gray-300 transition-colors">Werke</a>
-            <a href="#catalogues" class="hover:text-gray-300 transition-colors">Kataloge</a>
-            <a href="#contact" class="hover:text-gray-300 transition-colors">Kontakt</a>
+            <a href="#about" class="hover:opacity-70 transition-opacity">Über Mich</a>
+            <a href="#works" class="hover:opacity-70 transition-opacity">Werke</a>
+            <a href="#catalogues" class="hover:opacity-70 transition-opacity">Kataloge</a>
+            <a href="#contact" class="hover:opacity-70 transition-opacity">Kontakt</a>
         </div>
-        <a href="#contact" class="border border-white/50 px-5 py-2 text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all">Anfrage</a>
+        <a href="#contact" class="nav-btn border border-white/50 px-5 py-2 text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all">Anfrage</a>
     </nav>
 
     <!-- 1. Hero Slideshow -->
@@ -124,10 +128,10 @@
     </section>
 
     <!-- 7. Kontakt -->
-    <section id="contact" class="py-24 px-6 md:px-24 bg-art-black text-white">
+    <section id="contact" class="py-24 px-6 md:px-24 bg-white text-black">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-4xl md:text-5xl font-serif mb-8">Kontakt & Kooperation</h2>
-            <p class="text-gray-400 mb-12 font-light max-w-xl mx-auto">
+            <p class="text-gray-500 mb-12 font-light max-w-xl mx-auto">
                 Haben Sie Interesse an einem Werk, einer Kooperation oder möchten Sie eine Ausstellung organisieren?
             </p>
             
@@ -137,18 +141,18 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name</label>
-                        <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 p-3 text-white focus:outline-none focus:border-white transition-colors">
+                        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Name</label>
+                        <input type="text" name="name" required class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">E-Mail</label>
-                        <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 p-3 text-white focus:outline-none focus:border-white transition-colors">
+                        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">E-Mail</label>
+                        <input type="email" name="email" required class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors">
                     </div>
                 </div>
                 
                 <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Grund der Anfrage</label>
-                    <select name="reason" class="w-full bg-white/5 border border-white/10 p-3 text-white focus:outline-none focus:border-white transition-colors appearance-none">
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Grund der Anfrage</label>
+                    <select name="reason" class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors appearance-none">
                         <option value="Kaufinteresse" class="text-black">Kaufinteresse (Werk/Serie)</option>
                         <option value="Kooperation" class="text-black">Kooperation / Ausstellung</option>
                         <option value="Presse" class="text-black">Presse</option>
@@ -157,27 +161,30 @@
                 </div>
                 
                 <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Nachricht</label>
-                    <textarea name="message" rows="4" required class="w-full bg-white/5 border border-white/10 p-3 text-white focus:outline-none focus:border-white transition-colors"></textarea>
+                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Nachricht</label>
+                    <textarea name="message" rows="4" required class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors"></textarea>
                 </div>
                 
                 <div class="flex items-center space-x-3">
-                    <input type="checkbox" id="human" required class="w-4 h-4 bg-white/10 border-white/20">
+                    <input type="checkbox" id="human" required class="w-4 h-4 border-gray-300">
                     <label for="human" class="text-xs text-gray-400">Ich bin ein Mensch und stimme der Datenspeicherung zu.</label>
                 </div>
 
-                <button type="submit" class="w-full bg-white text-black font-bold uppercase tracking-widest py-4 hover:bg-gray-200 transition-colors">
+                <button type="submit" class="w-full bg-black text-white font-bold uppercase tracking-widest py-4 hover:bg-gray-800 transition-colors">
                     Nachricht Senden
                 </button>
             </form>
         </div>
         
-        <div class="max-w-7xl mx-auto mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 uppercase tracking-wider">
-            <div>&copy; 2026 El-Âlem. Alle Rechte vorbehalten.</div>
+        <div class="max-w-7xl mx-auto mt-24 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 uppercase tracking-wider">
+            <div class="flex items-center gap-4">
+                 <img src="/assets/signature.png" id="footer-signature" class="h-8 w-auto opacity-50" alt="Signature">
+                 <span>&copy; 2026 El-Âlem. Alle Rechte vorbehalten.</span>
+            </div>
             <div class="space-x-6 mt-4 md:mt-0">
-                <a href="impressum.html" class="hover:text-white transition-colors">Impressum</a>
-                <a href="datenschutz.html" class="hover:text-white transition-colors">Datenschutz</a>
-                <a href="/admin/login.html" class="hover:text-white transition-colors">Admin Login</a>
+                <a href="impressum.html" class="hover:text-black transition-colors">Impressum</a>
+                <a href="datenschutz.html" class="hover:text-black transition-colors">Datenschutz</a>
+                <a href="/admin/login.html" class="hover:text-black transition-colors">Admin Login</a>
             </div>
         </div>
     </section>
