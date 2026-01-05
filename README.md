@@ -50,3 +50,4 @@ Da dieses Projekt als "Frontend-Mockup" erstellt wurde, ist **kein echtes Node.j
 
 - **Daten zurücksetzen:**
   Löschen Sie den `localStorage` Key `el_alem_data` im Browser oder nutzen Sie die Reset-Funktion im Admin (falls implementiert), um die Seed-Daten neu zu laden.
+# Let's Go!
