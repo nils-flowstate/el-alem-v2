@@ -37,16 +37,15 @@
     <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center text-white mix-blend-difference">
         <a href="/" class="flex items-center gap-4">
              <img src="/assets/signature.png" class="nav-logo-img" alt="El-Âlem Signature">
-             <!-- Optional Text Fallback if needed, but Signature is requested -->
-             <!-- <span class="text-2xl font-serif tracking-widest font-bold uppercase hidden md:block">El-Âlem</span> -->
         </a>
-        <div class="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
-            <a href="#about" class="hover:opacity-70 transition-opacity">Über Mich</a>
-            <a href="#works" class="hover:opacity-70 transition-opacity">Werke</a>
-            <a href="#catalogues" class="hover:opacity-70 transition-opacity">Kataloge</a>
-            <a href="#contact" class="hover:opacity-70 transition-opacity">Kontakt</a>
+        <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium">
+            <a href="/" class="nav-link-shadow hover:opacity-70 transition-opacity">Home</a>
+            <a href="/werke.html?filter=Gemälde" class="nav-link-shadow hover:opacity-70 transition-opacity">Bilder</a>
+            <a href="/werke.html?filter=Texte" class="nav-link-shadow hover:opacity-70 transition-opacity">Texte</a>
+            <a href="/werke.html?filter=Lichtkunst" class="nav-link-shadow hover:opacity-70 transition-opacity">Lichtkunst</a>
+            <a href="/kataloge.html" class="bg-[#b91c4d] text-white px-6 py-2 rounded-sm shadow-md hover:bg-[#a01842] transition-colors border-none">Kataloge</a>
         </div>
-        <a href="#contact" class="nav-btn border border-white/50 px-5 py-2 text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all">Anfrage</a>
+        <!-- Mobile Menu Trigger (hidden for now, focus on Desktop as per screenshot) -->
     </nav>
 
     <!-- 1. Hero Slideshow -->

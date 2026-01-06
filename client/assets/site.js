@@ -14,10 +14,14 @@ const SEED_DATA = {
         { id: 'w6', title: 'Blue Void', category: 'Lichtkunst', serie: 's2', year: 2025, technique: 'Neonröhren', size: '120x40 cm', price: '3.200 €', image: '/uploads/light_art_installati_db6f5f2c.jpg', visible: true, featured: true },
         { id: 'w7', title: 'Red Line', category: 'Lichtkunst', serie: 's2', year: 2024, technique: 'Lichtinstallation', size: 'Variabel', price: 'Auf Anfrage', image: '/uploads/light_art_installati_3c03dd6c.jpg', visible: true, featured: false },
         { id: 'w8', title: 'Dark Matter', category: 'Lichtkunst', serie: 's2', year: 2024, technique: 'LED & Stahl', size: '200x200 cm', price: '5.500 €', image: '/uploads/light_art_installati_96b1d626.jpg', visible: true, featured: false },
+
+        { id: 'w9', title: 'Gedankenfluss', category: 'Texte', serie: 'none', year: 2025, technique: 'Lyrik', size: 'A4', price: '-', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, featured: false, pdf: '/uploads/poem.pdf' },
+        { id: 'w10', title: 'Der Ursprung', category: 'Texte', serie: 'none', year: 2024, technique: 'Prosa', size: 'Buch', price: '-', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, featured: false, pdf: '/uploads/re-integration.pdf' },
     ],
     series: [
         { id: 's1', title: 'Echo der Stille', category: 'Gemälde', year: '2023-2024', technique: 'Öl & Mischtechnik', count: 4, visible: true, description: 'Eine Auseinandersetzung mit der Ruhe im Chaos der modernen Welt.' },
-        { id: 's2', title: 'Luminous Dreams', category: 'Lichtkunst', year: '2024-2025', technique: 'Licht & Raum', count: 4, visible: true, description: 'Licht als skulpturales Element, das den Raum neu definiert.' }
+        { id: 's2', title: 'Luminous Dreams', category: 'Lichtkunst', year: '2024-2025', technique: 'Licht & Raum', count: 4, visible: true, description: 'Licht als skulpturales Element, das den Raum neu definiert.' },
+        { id: 'none', title: 'Keine Serie', category: 'Allgemein', year: '-', technique: '-', count: 0, visible: false, description: 'Einzelwerke ohne Serienzugehörigkeit.' }
     ],
     catalogues: [
         { id: 'c1', title: 'Re-Integration', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, pdf: '/uploads/re-integration.pdf' },
@@ -193,13 +197,20 @@ const UI = {
     },
 
     createWorkCard: (w) => `
-        <a href="werk.html?id=${w.id}" class="group block relative aspect-[4/5] overflow-hidden bg-gray-100">
-            <img src="${w.image}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="${w.title}">
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-6 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 text-white">
-                <h3 class="font-serif text-xl">${w.title}</h3>
-                <p class="text-xs tracking-wider mt-1">${w.technique}</p>
-            </div>
+        <a href="${w.pdf ? w.pdf : 'werk.html?id=' + w.id}" ${w.pdf ? 'target="_blank"' : ''} class="group block relative aspect-[4/5] overflow-hidden bg-gray-100">
+            ${w.category === 'Texte' 
+                ? `<div class="w-full h-full flex flex-col items-center justify-center bg-[#fdfbf7] p-8 text-center border border-gray-100">
+                        <i class="ph ph-article text-4xl text-gray-300 mb-4"></i>
+                        <h3 class="font-serif text-xl font-medium">${w.title}</h3>
+                        <span class="text-xs tracking-widest uppercase mt-2 text-gray-400">PDF Lesen</span>
+                   </div>`
+                : `<img src="${w.image}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="${w.title}">
+                   <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
+                   <div class="absolute bottom-0 left-0 right-0 p-6 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 text-white">
+                        <h3 class="font-serif text-xl">${w.title}</h3>
+                        <p class="text-xs tracking-wider mt-1">${w.technique}</p>
+                   </div>`
+            }
         </a>
     `,
 
@@ -287,16 +298,29 @@ const UI = {
     renderAllWorks: () => {
         const works = DB.getWorks();
         const container = document.getElementById('all-works-grid');
-        
-        // If works are empty, show something? 
-        // We will default render all
-        
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialFilter = urlParams.get('filter') || 'all';
+
         const render = (items) => {
              container.innerHTML = items.map(w => UI.createWorkCard(w)).join('');
         };
         
-        render(works);
-        
+        // Initial Filter
+        if(initialFilter !== 'all') {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(b => {
+                b.classList.remove('text-black', 'border-black');
+                b.classList.add('text-gray-400', 'border-transparent');
+                if(b.dataset.filter === initialFilter) {
+                    b.classList.add('text-black', 'border-black');
+                    b.classList.remove('text-gray-400', 'border-transparent');
+                }
+            });
+            render(works.filter(w => w.category === initialFilter));
+        } else {
+            render(works);
+        }
+
         // Subcategories / Series Filter
         const series = DB.getSeries();
         const subNav = document.getElementById('series-subnav');
@@ -318,6 +342,11 @@ const UI = {
                 const filter = btn.dataset.filter;
                 let filteredWorks = filter === 'all' ? works : works.filter(w => w.category === filter);
                 render(filteredWorks);
+                
+                // Update URL without reload
+                const url = new URL(window.location);
+                url.searchParams.set('filter', filter);
+                window.history.pushState({}, '', url);
             });
         });
     },
