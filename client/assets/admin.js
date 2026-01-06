@@ -7,7 +7,7 @@ const ADMIN = {
     init: () => {
         // Check Auth
         if (!sessionStorage.getItem('el_alem_admin') && !window.location.href.includes('login.html')) {
-            window.location.href = '/admin/login.html';
+            window.location.href = 'login.html';
             return;
         }
 
@@ -33,7 +33,7 @@ const ADMIN = {
             // Mock Creds check
             if (email === 'admin@kunst.de' && password === 'admin') {
                 sessionStorage.setItem('el_alem_admin', 'true');
-                window.location.href = '/admin/dashboard.html';
+                window.location.href = 'dashboard.html';
             } else {
                 alert('Falsche Zugangsdaten! (Try: admin@kunst.de / admin)');
             }
@@ -145,7 +145,7 @@ const ADMIN = {
                             const serieTitle = serie ? serie.title : '<span class="text-gray-400">-</span>';
                             return `
                             <tr>
-                                <td class="p-4"><img src="${w.image}" class="w-10 h-10 object-cover bg-gray-100"></td>
+                                <td class="p-4"><img src="../${w.image}" class="w-10 h-10 object-cover bg-gray-100"></td>
                                 <td class="p-4 font-medium">${w.title}</td>
                                 <td class="p-4 text-gray-500">${w.category}</td>
                                 <td class="p-4 text-gray-500">${serieTitle}</td>
@@ -275,10 +275,10 @@ const ADMIN = {
                             <tbody class="divide-y divide-gray-100">
                                 ${db.catalogues.map(c => `
                                     <tr>
-                                        <td class="p-4 w-16"><img src="${c.image}" class="w-10 h-12 object-cover bg-gray-100"></td>
+                                        <td class="p-4 w-16"><img src="../${c.image}" class="w-10 h-12 object-cover bg-gray-100"></td>
                                         <td class="p-4 font-medium">
                                             ${c.title}
-                                            <a href="${c.pdf}" target="_blank" class="block text-xs text-blue-600 hover:underline mt-1">PDF ansehen</a>
+                                            <a href="../${c.pdf}" target="_blank" class="block text-xs text-blue-600 hover:underline mt-1">PDF ansehen</a>
                                         </td>
                                         <td class="p-4 text-right">
                                             <button onclick="ADMIN.deleteItem('catalogues', '${c.id}')" class="text-red-600 hover:underline text-xs">Löschen</button>
@@ -304,7 +304,7 @@ const ADMIN = {
                                             <span class="block text-xs text-gray-400">${w.technique}</span>
                                         </td>
                                         <td class="p-4 text-right">
-                                            ${w.pdf ? `<a href="${w.pdf}" target="_blank" class="text-blue-600 hover:underline text-xs mr-2">PDF</a>` : ''}
+                                            ${w.pdf ? `<a href="../${w.pdf}" target="_blank" class="text-blue-600 hover:underline text-xs mr-2">PDF</a>` : ''}
                                             <button onclick="ADMIN.openWorkModal('${w.id}')" class="text-blue-600 hover:underline text-xs">Edit</button>
                                         </td>
                                     </tr>
@@ -369,7 +369,7 @@ const ADMIN = {
 
     openWorkModal: (id = null) => {
         const db = JSON.parse(localStorage.getItem('el_alem_data'));
-        const work = id ? db.works.find(w => w.id === id) : { title: '', category: 'Gemälde', serie: 'none', price: '', technique: '', year: new Date().getFullYear(), image: '/assets/placeholder.jpg' };
+        const work = id ? db.works.find(w => w.id === id) : { title: '', category: 'Gemälde', serie: 'none', price: '', technique: '', year: new Date().getFullYear(), image: '../assets/placeholder.jpg' };
         
         const modalHtml = `
             <div id="admin-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
