@@ -3,11 +3,7 @@ services:
     build: .
     container_name: el-alem-portfolio
     ports:
-      - "3004:80"
-    restart: unless-stopped
-    # Optional: Limit resources for NAS
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 256M
+      - "80:80" # Standard HTTP port for VPS
+    restart: always
+    environment:
+      - NODE_ENV=production
