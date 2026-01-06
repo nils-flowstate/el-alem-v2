@@ -44,6 +44,7 @@ server: {
     host: "0.0.0.0",
     port: 3004,
     allowedHosts: [
+      "d465c7e8-b073-45c0-a933-469cd710d5de-00-284i216gkb6q3.kirk.replit.dev"
       "el-alem-v2.flowstate.foundation",
       "localhost"
     ],
@@ -56,6 +57,7 @@ server: {
     host: "0.0.0.0",
     port: 3004,
     allowedHosts: [
+      "d465c7e8-b073-45c0-a933-469cd710d5de-00-284i216gkb6q3.kirk.replit.dev"
       "el-alem-v2.flowstate.foundation"
     ],
   },
