@@ -43,6 +43,7 @@ export default defineConfig({
 server: {
     host: "0.0.0.0",
     allowedHosts: [
+      "el-alem-v1.flowstate.foundation",
       "el-alem-v2.flowstate.foundation",
       "localhost"
     ],
@@ -54,6 +55,7 @@ server: {
   preview: {
     host: "0.0.0.0",
     allowedHosts: [
+      "el-alem-v1.flowstate.foundation",
       "el-alem-v2.flowstate.foundation"
     ],
   },
