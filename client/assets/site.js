@@ -15,12 +15,24 @@ const SEED_DATA = {
         { id: 'w7', title: 'Red Line', category: 'Lichtkunst', serie: 's2', year: 2024, technique: 'Lichtinstallation', size: 'Variabel', price: 'Auf Anfrage', image: '/uploads/light_art_installati_3c03dd6c.jpg', visible: true, featured: false },
         { id: 'w8', title: 'Dark Matter', category: 'Lichtkunst', serie: 's2', year: 2024, technique: 'LED & Stahl', size: '200x200 cm', price: '5.500 €', image: '/uploads/light_art_installati_96b1d626.jpg', visible: true, featured: false },
 
+        // Series 3: Fragmente der Zeit (Gemälde) - Reusing some images for prototype or using new placeholders if I had them. 
+        // Since I don't have new uploads, I will reuse images but giving them different context/titles to simulate variety.
+        { id: 'w11', title: 'Zeitriss I', category: 'Gemälde', serie: 's3', year: 2022, technique: 'Acryl auf Holz', size: '60x80 cm', price: '1.200 €', image: '/uploads/abstract_oil_paintin_51924054.jpg', visible: true, featured: false },
+        { id: 'w12', title: 'Zeitriss II', category: 'Gemälde', serie: 's3', year: 2022, technique: 'Acryl auf Holz', size: '60x80 cm', price: '1.200 €', image: '/uploads/abstract_oil_paintin_69132eda.jpg', visible: true, featured: false },
+        { id: 'w13', title: 'Vergessen', category: 'Gemälde', serie: 's3', year: 2022, technique: 'Acryl auf Holz', size: '100x120 cm', price: '2.800 €', image: '/uploads/abstract_oil_paintin_ef97bc95.jpg', visible: true, featured: false },
+
+        // Series 4: Digital Horizon (Lichtkunst)
+        { id: 'w14', title: 'Horizon A', category: 'Lichtkunst', serie: 's4', year: 2025, technique: 'Projektion', size: 'Variabel', price: 'Auf Anfrage', image: '/uploads/light_art_installati_14dd2f58.jpg', visible: true, featured: false },
+        { id: 'w15', title: 'Horizon B', category: 'Lichtkunst', serie: 's4', year: 2025, technique: 'Projektion', size: 'Variabel', price: 'Auf Anfrage', image: '/uploads/light_art_installati_db6f5f2c.jpg', visible: true, featured: false },
+
         { id: 'w9', title: 'Gedankenfluss', category: 'Texte', serie: 'none', year: 2025, technique: 'Lyrik', size: 'A4', price: '-', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, featured: false, pdf: '/uploads/poem.pdf' },
         { id: 'w10', title: 'Der Ursprung', category: 'Texte', serie: 'none', year: 2024, technique: 'Prosa', size: 'Buch', price: '-', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, featured: false, pdf: '/uploads/re-integration.pdf' },
     ],
     series: [
-        { id: 's1', title: 'Echo der Stille', category: 'Gemälde', year: '2023-2024', technique: 'Öl & Mischtechnik', count: 4, visible: true, description: 'Eine Auseinandersetzung mit der Ruhe im Chaos der modernen Welt.' },
-        { id: 's2', title: 'Luminous Dreams', category: 'Lichtkunst', year: '2024-2025', technique: 'Licht & Raum', count: 4, visible: true, description: 'Licht als skulpturales Element, das den Raum neu definiert.' },
+        { id: 's1', title: 'Echo der Stille', category: 'Gemälde', year: '2023-2024', technique: 'Öl & Mischtechnik', count: 4, visible: true, description: 'Eine Auseinandersetzung mit der Ruhe im Chaos der modernen Welt. Diese Serie untersucht die Stille als aktiven Zustand des Seins.' },
+        { id: 's2', title: 'Luminous Dreams', category: 'Lichtkunst', year: '2024-2025', technique: 'Licht & Raum', count: 4, visible: true, description: 'Licht als skulpturales Element, das den Raum neu definiert. Inspiriert von den nächtlichen Skylines und neuronalen Netzwerken.' },
+        { id: 's3', title: 'Fragmente der Zeit', category: 'Gemälde', year: '2022', technique: 'Acryl auf Holz', count: 3, visible: true, description: 'Zerbrochene Erinnerungen, neu zusammengesetzt. Eine Reise durch die Schichten der Vergangenheit.' },
+        { id: 's4', title: 'Digital Horizon', category: 'Lichtkunst', year: '2025', technique: 'Projektion', count: 2, visible: true, description: 'Die Grenze zwischen physischer und digitaler Realität verschwimmt.' },
         { id: 'none', title: 'Keine Serie', category: 'Allgemein', year: '-', technique: '-', count: 0, visible: false, description: 'Einzelwerke ohne Serienzugehörigkeit.' }
     ],
     catalogues: [
