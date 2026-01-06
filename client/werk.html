@@ -42,8 +42,19 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
             <!-- Big Image -->
-            <div class="lg:col-span-8 bg-gray-50" id="werk-image-container">
-                <img id="werk-image" src="" class="w-full h-auto object-contain max-h-[85vh] mx-auto shadow-sm" alt="Werk">
+            <div class="lg:col-span-8 space-y-12">
+                <div class="bg-gray-50" id="werk-image-container">
+                    <img id="werk-image" src="" class="w-full h-auto object-contain max-h-[85vh] mx-auto shadow-sm" alt="Werk">
+                </div>
+
+                <!-- Comments List (Moved here) -->
+                <div class="pt-8 border-t border-gray-100">
+                    <h3 class="font-serif text-2xl mb-6">Gedanken zum Werk</h3>
+                    <div id="comments-list" class="space-y-6 mb-8 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                        <!-- Rendered by JS -->
+                        <p class="text-sm text-gray-400 italic">Noch keine Kommentare.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Details -->
@@ -69,15 +80,9 @@
                     </a>
                 </div>
 
-                <!-- Comments Section -->
+                <!-- Comment Form (Remains here) -->
                 <div class="pt-8 border-t border-gray-100">
-                    <h3 class="font-serif text-xl mb-6">Kommentare</h3>
-                    
-                    <div id="comments-list" class="space-y-6 mb-8 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-                        <!-- Rendered by JS -->
-                        <p class="text-sm text-gray-400 italic">Noch keine Kommentare.</p>
-                    </div>
-
+                    <h3 class="font-serif text-xl mb-6">Kommentar schreiben</h3>
                     <form id="comment-form" class="space-y-4">
                         <!-- Honeypot for spam protection -->
                         <input type="text" name="website_url" class="hidden" tabindex="-1" autocomplete="off">
