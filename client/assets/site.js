@@ -75,7 +75,21 @@ const DB = {
     // Specific Getters
     getWorkById: (id) => DB.get().works.find(w => w.id === id),
     getSerieById: (id) => DB.get().series.find(s => s.id === id),
-    getWorksBySerie: (serieId) => DB.get().works.filter(w => w.serie === serieId && w.visible)
+    getWorksBySerie: (serieId) => DB.get().works.filter(w => w.serie === serieId && w.visible),
+
+    // Comments System
+    getComments: (targetId) => {
+        return (DB.get().comments || []).filter(c => c.targetId === targetId).sort((a,b) => new Date(b.date) - new Date(a.date));
+    },
+    addComment: (comment) => {
+        const data = DB.get();
+        if(!data.comments) data.comments = [];
+        comment.id = 'cmt_' + Date.now();
+        comment.date = new Date().toISOString();
+        data.comments.push(comment);
+        DB.set(data);
+        console.log('💬 Neuer Kommentar:', comment);
+    }
 };
 
 // --- UI RENDERERS ---
@@ -97,10 +111,61 @@ const UI = {
         if (document.getElementById('all-works-grid')) UI.renderAllWorks();
         if (document.getElementById('serie-detail')) UI.renderSerieDetail();
         if (document.getElementById('werk-detail')) UI.renderWerkDetail();
+
+        // Catalogue Detail Comments Init
+        if (document.getElementById('flipbook-container')) {
+             const urlParams = new URLSearchParams(window.location.search);
+             const id = urlParams.get('id');
+             if(id) UI.setupComments(id);
+        }
         
         // Signature injection in footer if exists
         const footerSig = document.getElementById('footer-signature');
         if(footerSig) footerSig.src = '/assets/signature.png';
+    },
+
+    setupComments: (targetId) => {
+        const list = document.getElementById('comments-list');
+        const form = document.getElementById('comment-form');
+        if(!list || !form) return;
+
+        const render = () => {
+            const comments = DB.getComments(targetId);
+            if(comments.length === 0) {
+                list.innerHTML = '<p class="text-sm text-gray-400 italic text-center">Noch keine Kommentare.</p>';
+            } else {
+                list.innerHTML = comments.map(c => `
+                    <div class="bg-gray-50 p-4 rounded-sm border border-gray-100 text-sm animate-fade-in">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold font-serif">${c.name}</span>
+                            <span class="text-xs text-gray-400">${new Date(c.date).toLocaleDateString()}</span>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed">${c.message}</p>
+                    </div>
+                `).join('');
+            }
+        };
+
+        render();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Honeypot check
+            const honeypot = form.querySelector('input[name="website_url"]');
+            if(honeypot && honeypot.value) {
+                console.warn('Bot detected via honeypot');
+                return;
+            }
+
+            const name = document.getElementById('comment-name').value;
+            const message = document.getElementById('comment-message').value;
+
+            if(name && message) {
+                DB.addComment({ targetId, name, message });
+                form.reset();
+                render();
+            }
+        });
     },
 
     setupNavigation: () => {
@@ -444,19 +509,26 @@ const UI = {
             return;
         }
 
+        // Setup Meta Title
+        document.title = `${work.title} | El-Âlem`;
+
         // Render Detail
         if(work.video) {
              document.getElementById('werk-image-container').innerHTML = `
                 <video src="${work.video}" controls class="w-full h-auto max-h-[85vh] mx-auto shadow-sm"></video>
              `;
         } else {
-             document.getElementById('werk-image').src = work.image;
+             const img = document.getElementById('werk-image');
+             if(img) {
+                 img.src = work.image;
+                 img.alt = work.title;
+             }
         }
         
         document.getElementById('werk-title').innerText = work.title;
         document.getElementById('werk-meta').innerHTML = `
             <div class="space-y-2 text-sm text-gray-500">
-                <p><strong class="uppercase text-xs tracking-widest text-black block mb-1">Serie</strong> ${DB.getSerieById(work.serie)?.title || '-'}</p>
+                <p><strong class="uppercase text-xs tracking-widest text-black block mb-1">Serie</strong> ${work.serie && work.serie !== 'none' ? `<a href="serie.html?id=${work.serie}" class="underline hover:text-black">${DB.getSerieById(work.serie)?.title || '-'}</a>` : '-'}</p>
                 <p><strong class="uppercase text-xs tracking-widest text-black block mb-1">Jahr</strong> ${work.year}</p>
                 <p><strong class="uppercase text-xs tracking-widest text-black block mb-1">Technik</strong> ${work.technique}</p>
                 <p><strong class="uppercase text-xs tracking-widest text-black block mb-1">Maße</strong> ${work.size}</p>
@@ -467,6 +539,9 @@ const UI = {
         // Setup Inquiry Button
         const inquiryBtn = document.getElementById('inquiry-btn');
         inquiryBtn.href = `/index.html?subject=${encodeURIComponent(work.title)}#contact`;
+
+        // Setup Comments
+        UI.setupComments(work.id);
     }
 };
 
