@@ -105,7 +105,10 @@ const UI = {
 
     setupNavigation: () => {
         const nav = document.querySelector('nav');
-        if(!nav) return;
+        // Only run the transparent-to-white logic if we are on the homepage with the hero slideshow
+        const isHomePage = document.getElementById('hero-slideshow');
+        
+        if(!nav || !isHomePage) return;
         
         const updateNav = () => {
             if (window.scrollY > 50) {
@@ -309,58 +312,105 @@ const UI = {
 
     renderAllWorks: () => {
         const works = DB.getWorks();
+        const allSeries = DB.getSeries();
         const container = document.getElementById('all-works-grid');
+        const subNav = document.getElementById('series-subnav');
         const urlParams = new URLSearchParams(window.location.search);
-        const initialFilter = urlParams.get('filter') || 'all';
-
-        const render = (items) => {
-             container.innerHTML = items.map(w => UI.createWorkCard(w)).join('');
-        };
         
-        // Initial Filter
-        if(initialFilter !== 'all') {
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(b => {
-                b.classList.remove('text-black', 'border-black');
-                b.classList.add('text-gray-400', 'border-transparent');
-                if(b.dataset.filter === initialFilter) {
-                    b.classList.add('text-black', 'border-black');
-                    b.classList.remove('text-gray-400', 'border-transparent');
+        // Initial state from URL or default 'all'
+        let currentCategory = urlParams.get('filter') || 'all';
+        let currentSerie = urlParams.get('serie') || null;
+
+        const render = () => {
+            // 1. Update Main Filter UI
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.dataset.filter === currentCategory) {
+                    btn.classList.add('text-black', 'border-black');
+                    btn.classList.remove('text-gray-400', 'border-transparent');
+                } else {
+                    btn.classList.remove('text-black', 'border-black');
+                    btn.classList.add('text-gray-400', 'border-transparent');
                 }
             });
-            render(works.filter(w => w.category === initialFilter));
-        } else {
-            render(works);
-        }
 
-        // Subcategories / Series Filter
-        const series = DB.getSeries();
-        const subNav = document.getElementById('series-subnav');
-        if(subNav) {
-             // Create subnav for series if needed. User asked for "Gemälde haben eigene Serien".
-             // We can render list of series buttons dynamically based on selected category filter
-        }
+            // 2. Determine which works to show based on Category AND Serie
+            let filteredWorks = works;
+            let seriesToDisplay = [];
 
-        // Main Filter Logic
-        const buttons = document.querySelectorAll('.filter-btn');
-        buttons.forEach(btn => {
+            if (currentCategory !== 'all') {
+                filteredWorks = works.filter(w => w.category === currentCategory);
+                // Find series belonging to this category
+                seriesToDisplay = allSeries.filter(s => s.category === currentCategory);
+            } else {
+                seriesToDisplay = []; // No series filter on 'All' view
+            }
+
+            if (currentSerie) {
+                filteredWorks = filteredWorks.filter(w => w.serie === currentSerie);
+            }
+
+            // 3. Render Sub-Nav (Series Buttons)
+            if (subNav && seriesToDisplay.length > 0) {
+                subNav.classList.remove('hidden');
+                subNav.classList.add('flex');
+                
+                const allActive = !currentSerie ? 'bg-black text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200';
+                
+                let html = `<button class="serie-btn px-4 py-1 rounded-full transition-colors ${allActive}" data-serie="">Alle ${currentCategory}</button>`;
+                
+                html += seriesToDisplay.map(s => {
+                    const active = currentSerie === s.id ? 'bg-black text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200';
+                    return `<button class="serie-btn px-4 py-1 rounded-full transition-colors ${active}" data-serie="${s.id}">${s.title}</button>`;
+                }).join('');
+                
+                subNav.innerHTML = html;
+
+                // Add listeners to new sub-buttons
+                subNav.querySelectorAll('.serie-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        currentSerie = btn.dataset.serie || null;
+                        updateUrl();
+                        render();
+                    });
+                });
+
+            } else if (subNav) {
+                subNav.classList.add('hidden');
+                subNav.classList.remove('flex');
+                subNav.innerHTML = '';
+            }
+
+            // 4. Render Works Grid
+            if (filteredWorks.length > 0) {
+                 container.innerHTML = filteredWorks.map(w => UI.createWorkCard(w)).join('');
+            } else {
+                 container.innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Keine Werke gefunden.</div>';
+            }
+        };
+
+        const updateUrl = () => {
+            const url = new URL(window.location);
+            url.searchParams.set('filter', currentCategory);
+            if(currentSerie) {
+                url.searchParams.set('serie', currentSerie);
+            } else {
+                url.searchParams.delete('serie');
+            }
+            window.history.pushState({}, '', url);
+        };
+
+        // Initialize Main Filter Listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // Active State
-                buttons.forEach(b => b.classList.remove('text-black', 'border-black'));
-                buttons.forEach(b => b.classList.add('text-gray-400', 'border-transparent'));
-                btn.classList.add('text-black', 'border-black');
-                btn.classList.remove('text-gray-400', 'border-transparent');
-                
-                const filter = btn.dataset.filter;
-                let filteredWorks = filter === 'all' ? works : works.filter(w => w.category === filter);
-                render(filteredWorks);
-                
-                // Update URL without reload
-                const url = new URL(window.location);
-                url.searchParams.set('filter', filter);
-                window.history.pushState({}, '', url);
+                currentCategory = btn.dataset.filter;
+                currentSerie = null; // Reset series when switching category
+                updateUrl();
+                render();
             });
         });
+
+        // Initial Render
+        render();
     },
 
     renderSerieDetail: () => {
