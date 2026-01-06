@@ -110,6 +110,8 @@ const ADMIN = {
             `;
         } else if (view === '#works') {
             ADMIN.renderWorksList(content, db);
+        } else if (view === '#series') {
+            ADMIN.renderSeriesList(content, db);
         } else if (view === '#requests') {
             ADMIN.renderRequestsList(content, db);
         }
@@ -119,7 +121,7 @@ const ADMIN = {
         container.innerHTML = `
             <div class="flex justify-between items-center mb-8">
                 <h1 class="text-3xl font-serif">Werke verwalten</h1>
-                <button onclick="alert('Mock: Hier würde der Create-Dialog aufgehen.')" class="bg-black text-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-gray-800">Neues Werk</button>
+                <button onclick="ADMIN.openWorkModal()" class="bg-black text-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-gray-800">Neues Werk</button>
             </div>
             <div class="bg-white border border-gray-100 overflow-hidden">
                 <table class="w-full text-left text-sm">
@@ -128,24 +130,71 @@ const ADMIN = {
                             <th class="p-4 w-16">Bild</th>
                             <th class="p-4">Titel</th>
                             <th class="p-4">Kategorie</th>
+                            <th class="p-4">Serie</th>
                             <th class="p-4">Status</th>
                             <th class="p-4 text-right">Aktionen</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
-                        ${db.works.map(w => `
+                        ${db.works.map(w => {
+                            const serie = db.series.find(s => s.id === w.serie);
+                            const serieTitle = serie ? serie.title : '<span class="text-gray-400">-</span>';
+                            return `
                             <tr>
                                 <td class="p-4"><img src="${w.image}" class="w-10 h-10 object-cover bg-gray-100"></td>
                                 <td class="p-4 font-medium">${w.title}</td>
                                 <td class="p-4 text-gray-500">${w.category}</td>
+                                <td class="p-4 text-gray-500">${serieTitle}</td>
                                 <td class="p-4">
                                     <button onclick="ADMIN.toggleVisibility('works', '${w.id}')" class="px-2 py-1 text-xs rounded-full ${w.visible ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-500'}">
                                         ${w.visible ? 'Sichtbar' : 'Versteckt'}
                                     </button>
                                 </td>
                                 <td class="p-4 text-right space-x-2">
-                                    <button class="text-blue-600 hover:underline">Bearbeiten</button>
+                                    <button onclick="ADMIN.openWorkModal('${w.id}')" class="text-blue-600 hover:underline">Bearbeiten</button>
                                     <button onclick="ADMIN.deleteItem('works', '${w.id}')" class="text-red-600 hover:underline">Löschen</button>
+                                </td>
+                            </tr>
+                        `}).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    },
+
+    renderSeriesList: (container, db) => {
+        container.innerHTML = `
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-serif">Serien verwalten</h1>
+                <button onclick="ADMIN.openSerieModal()" class="bg-black text-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-gray-800">Neue Serie</button>
+            </div>
+            <div class="bg-white border border-gray-100 overflow-hidden">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-50 text-gray-500 uppercase tracking-wider text-xs border-b border-gray-100">
+                        <tr>
+                            <th class="p-4">Titel</th>
+                            <th class="p-4">Kategorie</th>
+                            <th class="p-4">Jahr</th>
+                            <th class="p-4">Werke Anzahl</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4 text-right">Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        ${db.series.map(s => `
+                            <tr>
+                                <td class="p-4 font-medium">${s.title}</td>
+                                <td class="p-4 text-gray-500">${s.category}</td>
+                                <td class="p-4 text-gray-500">${s.year}</td>
+                                <td class="p-4 text-gray-500">${s.count}</td>
+                                <td class="p-4">
+                                    <button onclick="ADMIN.toggleVisibility('series', '${s.id}')" class="px-2 py-1 text-xs rounded-full ${s.visible ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-500'}">
+                                        ${s.visible ? 'Sichtbar' : 'Versteckt'}
+                                    </button>
+                                </td>
+                                <td class="p-4 text-right space-x-2">
+                                    <button onclick="ADMIN.openSerieModal('${s.id}')" class="text-blue-600 hover:underline">Bearbeiten</button>
+                                    ${s.id !== 'none' ? `<button onclick="ADMIN.deleteItem('series', '${s.id}')" class="text-red-600 hover:underline">Löschen</button>` : ''}
                                 </td>
                             </tr>
                         `).join('')}
@@ -206,6 +255,176 @@ const ADMIN = {
             localStorage.setItem('el_alem_data', JSON.stringify(db));
             // No full re-render needed, just visual feedback maybe
         }
+    },
+
+    // --- MODALS (Simulated with Prompts for simplicity in prototype, or simple overlay) ---
+    // For a better UX, I'll inject a simple Modal HTML
+
+    openWorkModal: (id = null) => {
+        const db = JSON.parse(localStorage.getItem('el_alem_data'));
+        const work = id ? db.works.find(w => w.id === id) : { title: '', category: 'Gemälde', serie: 'none', price: '', technique: '', year: new Date().getFullYear(), image: '/assets/placeholder.jpg' };
+        
+        const modalHtml = `
+            <div id="admin-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <div class="bg-white p-8 max-w-lg w-full shadow-2xl rounded">
+                    <h2 class="text-2xl font-serif mb-6">${id ? 'Werk bearbeiten' : 'Neues Werk'}</h2>
+                    <form onsubmit="ADMIN.saveWork(event, '${id || ''}')" class="space-y-4">
+                        <div>
+                            <label class="block text-xs uppercase text-gray-500 mb-1">Titel</label>
+                            <input name="title" value="${work.title}" class="w-full border p-2 text-sm" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 mb-1">Kategorie</label>
+                                <select name="category" class="w-full border p-2 text-sm">
+                                    <option value="Gemälde" ${work.category === 'Gemälde' ? 'selected' : ''}>Gemälde</option>
+                                    <option value="Lichtkunst" ${work.category === 'Lichtkunst' ? 'selected' : ''}>Lichtkunst</option>
+                                    <option value="Texte" ${work.category === 'Texte' ? 'selected' : ''}>Texte</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 mb-1">Serie</label>
+                                <select name="serie" class="w-full border p-2 text-sm">
+                                    <option value="none">Keine Serie</option>
+                                    ${db.series.filter(s => s.id !== 'none').map(s => `
+                                        <option value="${s.id}" ${work.serie === s.id ? 'selected' : ''}>${s.title}</option>
+                                    `).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 mb-1">Technik</label>
+                                <input name="technique" value="${work.technique}" class="w-full border p-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 mb-1">Jahr</label>
+                                <input name="year" value="${work.year}" class="w-full border p-2 text-sm">
+                            </div>
+                        </div>
+                         <div>
+                            <label class="block text-xs uppercase text-gray-500 mb-1">Preis</label>
+                            <input name="price" value="${work.price}" class="w-full border p-2 text-sm">
+                        </div>
+                        
+                        <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
+                            <button type="button" onclick="document.getElementById('admin-modal').remove()" class="px-4 py-2 text-sm text-gray-500 hover:text-black">Abbrechen</button>
+                            <button type="submit" class="px-6 py-2 bg-black text-white text-sm uppercase tracking-wider hover:bg-gray-800">Speichern</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+    },
+
+    saveWork: (e, id) => {
+        e.preventDefault();
+        const form = e.target;
+        const db = JSON.parse(localStorage.getItem('el_alem_data'));
+        
+        const workData = {
+            title: form.title.value,
+            category: form.category.value,
+            serie: form.serie.value,
+            technique: form.technique.value,
+            year: form.year.value,
+            price: form.price.value,
+            visible: true
+        };
+
+        if (id) {
+            // Update
+            const idx = db.works.findIndex(w => w.id === id);
+            db.works[idx] = { ...db.works[idx], ...workData };
+        } else {
+            // Create
+            workData.id = 'w' + Date.now();
+            workData.image = '/assets/placeholder.jpg'; // Mock image
+            db.works.unshift(workData);
+        }
+
+        // Update Series Count logic could go here
+        
+        localStorage.setItem('el_alem_data', JSON.stringify(db));
+        document.getElementById('admin-modal').remove();
+        ADMIN.renderDashboard();
+    },
+
+    openSerieModal: (id = null) => {
+        const db = JSON.parse(localStorage.getItem('el_alem_data'));
+        const serie = id ? db.series.find(s => s.id === id) : { title: '', category: 'Gemälde', year: '', description: '', technique: '' };
+        
+        const modalHtml = `
+            <div id="admin-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <div class="bg-white p-8 max-w-lg w-full shadow-2xl rounded">
+                    <h2 class="text-2xl font-serif mb-6">${id ? 'Serie bearbeiten' : 'Neue Serie'}</h2>
+                    <form onsubmit="ADMIN.saveSerie(event, '${id || ''}')" class="space-y-4">
+                        <div>
+                            <label class="block text-xs uppercase text-gray-500 mb-1">Titel</label>
+                            <input name="title" value="${serie.title}" class="w-full border p-2 text-sm" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase text-gray-500 mb-1">Kategorie</label>
+                            <select name="category" class="w-full border p-2 text-sm">
+                                <option value="Gemälde" ${serie.category === 'Gemälde' ? 'selected' : ''}>Gemälde</option>
+                                <option value="Lichtkunst" ${serie.category === 'Lichtkunst' ? 'selected' : ''}>Lichtkunst</option>
+                            </select>
+                        </div>
+                         <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 mb-1">Technik</label>
+                                <input name="technique" value="${serie.technique}" class="w-full border p-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 mb-1">Jahr</label>
+                                <input name="year" value="${serie.year}" class="w-full border p-2 text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase text-gray-500 mb-1">Beschreibung</label>
+                            <textarea name="description" class="w-full border p-2 text-sm h-24">${serie.description}</textarea>
+                        </div>
+                        
+                        <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-100">
+                            <button type="button" onclick="document.getElementById('admin-modal').remove()" class="px-4 py-2 text-sm text-gray-500 hover:text-black">Abbrechen</button>
+                            <button type="submit" class="px-6 py-2 bg-black text-white text-sm uppercase tracking-wider hover:bg-gray-800">Speichern</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+    },
+
+    saveSerie: (e, id) => {
+        e.preventDefault();
+        const form = e.target;
+        const db = JSON.parse(localStorage.getItem('el_alem_data'));
+        
+        const serieData = {
+            title: form.title.value,
+            category: form.category.value,
+            technique: form.technique.value,
+            year: form.year.value,
+            description: form.description.value,
+            visible: true
+        };
+
+        if (id) {
+            // Update
+            const idx = db.series.findIndex(s => s.id === id);
+            db.series[idx] = { ...db.series[idx], ...serieData };
+        } else {
+            // Create
+            serieData.id = 's' + Date.now();
+            serieData.count = 0;
+            db.series.unshift(serieData);
+        }
+
+        localStorage.setItem('el_alem_data', JSON.stringify(db));
+        document.getElementById('admin-modal').remove();
+        ADMIN.renderDashboard();
     }
 };
 
