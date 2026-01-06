@@ -25,8 +25,8 @@ const SEED_DATA = {
         { id: 'w14', title: 'Horizon A', category: 'Lichtkunst', serie: 's4', year: 2025, technique: 'Projektion', size: 'Variabel', price: 'Auf Anfrage', image: '/uploads/light_art_installati_14dd2f58.jpg', visible: true, featured: false },
         { id: 'w15', title: 'Horizon B', category: 'Lichtkunst', serie: 's4', year: 2025, technique: 'Projektion', size: 'Variabel', price: 'Auf Anfrage', image: '/uploads/light_art_installati_db6f5f2c.jpg', visible: true, featured: false },
 
-        { id: 'w9', title: 'Gedankenfluss', category: 'Texte', serie: 'none', year: 2025, technique: 'Lyrik', size: 'A4', price: '-', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, featured: false, pdf: '/uploads/poem.pdf' },
-        { id: 'w10', title: 'Der Ursprung', category: 'Texte', serie: 'none', year: 2024, technique: 'Prosa', size: 'Buch', price: '-', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, featured: false, pdf: '/uploads/re-integration.pdf' },
+        { id: 'w9', title: 'Gedankenfluss', category: 'Texte', serie: 'none', year: 2025, technique: 'Lyrik', size: 'A4', price: '-', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, featured: false, pdf: '/uploads/gedichte_2016.pdf' },
+        { id: 'w10', title: 'Der Ursprung', category: 'Texte', serie: 'none', year: 2024, technique: 'Prosa', size: 'Buch', price: '-', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, featured: false, pdf: '/uploads/re-integration_v2.pdf' },
     ],
     series: [
         { id: 's1', title: 'Echo der Stille', category: 'Gemälde', year: '2023-2024', technique: 'Öl & Mischtechnik', count: 4, visible: true, description: 'Eine Auseinandersetzung mit der Ruhe im Chaos der modernen Welt. Diese Serie untersucht die Stille als aktiven Zustand des Seins.' },
@@ -36,8 +36,8 @@ const SEED_DATA = {
         { id: 'none', title: 'Keine Serie', category: 'Allgemein', year: '-', technique: '-', count: 0, visible: false, description: 'Einzelwerke ohne Serienzugehörigkeit.' }
     ],
     catalogues: [
-        { id: 'c1', title: 'Re-Integration', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, pdf: '/uploads/re-integration.pdf' },
-        { id: 'c2', title: 'Gedichte 2016', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, pdf: '/uploads/poem.pdf' }
+        { id: 'c1', title: 'Re-Integration', image: '/uploads/art_catalogue_book_c_697661d0.jpg', visible: true, pdf: '/uploads/re-integration_v2.pdf' },
+        { id: 'c2', title: 'Gedichte 2016', image: '/uploads/art_catalogue_book_c_da631099.jpg', visible: true, pdf: '/uploads/gedichte_2016.pdf' }
     ],
     artist: {
         portrait: '/uploads/older_male_artist_po_bd6859aa.jpg',

@@ -112,6 +112,8 @@ const ADMIN = {
             ADMIN.renderWorksList(content, db);
         } else if (view === '#series') {
             ADMIN.renderSeriesList(content, db);
+        } else if (view === '#texts') {
+            ADMIN.renderTextsList(content, db);
         } else if (view === '#requests') {
             ADMIN.renderRequestsList(content, db);
         }
@@ -226,6 +228,73 @@ const ADMIN = {
                 `).join('')}
                 ${db.requests.length === 0 ? '<p class="text-gray-500">Keine Anfragen.</p>' : ''}
              </div>
+        `;
+    },
+
+    renderTextsList: (container, db) => {
+        container.innerHTML = `
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-serif">Texte & Kataloge verwalten</h1>
+                <button onclick="alert('Mock: Upload Dialog')" class="bg-black text-white px-4 py-2 text-sm uppercase tracking-wider hover:bg-gray-800">PDF Hochladen</button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Catalogues Section -->
+                <div>
+                    <h3 class="text-xl font-serif mb-4 border-b border-gray-200 pb-2">Kataloge (PDF)</h3>
+                    <div class="bg-white border border-gray-100 overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <tbody class="divide-y divide-gray-100">
+                                ${db.catalogues.map(c => `
+                                    <tr>
+                                        <td class="p-4 w-16"><img src="${c.image}" class="w-10 h-12 object-cover bg-gray-100"></td>
+                                        <td class="p-4 font-medium">
+                                            ${c.title}
+                                            <a href="${c.pdf}" target="_blank" class="block text-xs text-blue-600 hover:underline mt-1">PDF ansehen</a>
+                                        </td>
+                                        <td class="p-4 text-right">
+                                            <button onclick="ADMIN.deleteItem('catalogues', '${c.id}')" class="text-red-600 hover:underline text-xs">Löschen</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Texte/Books Section (from Works category 'Texte') -->
+                <div>
+                    <h3 class="text-xl font-serif mb-4 border-b border-gray-200 pb-2">Texte (Als Werk)</h3>
+                    <div class="bg-white border border-gray-100 overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <tbody class="divide-y divide-gray-100">
+                                ${db.works.filter(w => w.category === 'Texte').map(w => `
+                                    <tr>
+                                        <td class="p-4 w-16"><div class="w-10 h-10 bg-gray-50 flex items-center justify-center"><i class="ph ph-article text-xl text-gray-400"></i></div></td>
+                                        <td class="p-4 font-medium">
+                                            ${w.title}
+                                            <span class="block text-xs text-gray-400">${w.technique}</span>
+                                        </td>
+                                        <td class="p-4 text-right">
+                                            ${w.pdf ? `<a href="${w.pdf}" target="_blank" class="text-blue-600 hover:underline text-xs mr-2">PDF</a>` : ''}
+                                            <button onclick="ADMIN.openWorkModal('${w.id}')" class="text-blue-600 hover:underline text-xs">Edit</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-gray-100 p-8 rounded border border-gray-200 text-center">
+                <i class="ph ph-file-pdf text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-lg font-bold text-gray-600">PDF Vorschau Integration</h3>
+                <p class="text-sm text-gray-500 max-w-md mx-auto mt-2">
+                    In der Vollversion können hier PDFs direkt im Browser als Flipbook oder Vorschau gerendert werden.
+                    Aktuell sind die Dateien direkt verlinkt.
+                </p>
+            </div>
         `;
     },
 
