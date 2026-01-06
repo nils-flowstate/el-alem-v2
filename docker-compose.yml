@@ -4,6 +4,8 @@ services:
     container_name: el-alem-v2
     ports:
       - "3004:80" # Standard HTTP port for VPS
+    env_file:
+      - .env
     restart: always
     environment:
       - NODE_ENV=production
