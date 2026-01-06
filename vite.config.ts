@@ -40,12 +40,23 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
-  server: {
+server: {
     host: "0.0.0.0",
-    allowedHosts: true,
+    allowedHosts: [
+      "el-alem-v1.flowstate.foundation",
+      "el-alem-v2.flowstate.foundation",
+      "localhost"
+    ],
     fs: {
       strict: true,
       deny: ["**/.*"],
     },
+  },
+  preview: {
+    host: "0.0.0.0",
+    allowedHosts: [
+      "el-alem-v1.flowstate.foundation",
+      "el-alem-v2.flowstate.foundation"
+    ],
   },
 });
