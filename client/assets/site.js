@@ -89,6 +89,20 @@ const DB = {
         data.comments.push(comment);
         DB.set(data);
         console.log('💬 Neuer Kommentar:', comment);
+        return comment; // Return added comment for local tracking
+    },
+    updateComment: (id, text) => {
+        const data = DB.get();
+        if(data.comments) {
+            const idx = data.comments.findIndex(c => c.id === id);
+            if(idx !== -1) {
+                data.comments[idx].message = text;
+                // Add edited flag maybe?
+                data.comments[idx].edited = true;
+                DB.set(data);
+                console.log('✏️ Kommentar bearbeitet:', id);
+            }
+        }
     }
 };
 
@@ -129,20 +143,66 @@ const UI = {
         const form = document.getElementById('comment-form');
         if(!list || !form) return;
 
+        // Helper: Check ownership and editability
+        const isEditable = (commentDate) => {
+            const created = new Date(commentDate).getTime();
+            const now = Date.now();
+            return (now - created) < 60 * 60 * 1000; // 60 mins
+        };
+        
+        const myComments = JSON.parse(localStorage.getItem('el_alem_my_comments') || '[]');
+
         const render = () => {
             const comments = DB.getComments(targetId);
             if(comments.length === 0) {
                 list.innerHTML = '<p class="text-sm text-gray-400 italic text-center">Noch keine Kommentare.</p>';
             } else {
-                list.innerHTML = comments.map(c => `
-                    <div class="bg-gray-50 p-4 rounded-sm border border-gray-100 text-sm animate-fade-in">
+                list.innerHTML = comments.map(c => {
+                    const isMine = myComments.includes(c.id);
+                    const canEdit = isMine && isEditable(c.date);
+                    
+                    return `
+                    <div class="bg-gray-50 p-4 rounded-sm border border-gray-100 text-sm animate-fade-in group" id="comment-${c.id}">
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold font-serif">${c.name}</span>
-                            <span class="text-xs text-gray-400">${new Date(c.date).toLocaleDateString()}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-gray-400">${new Date(c.date).toLocaleDateString()} ${new Date(c.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                ${canEdit ? `<button onclick="UI.enableEditMode('${c.id}')" class="text-xs text-blue-600 hover:underline uppercase tracking-widest ml-2 opacity-0 group-hover:opacity-100 transition-opacity">Bearbeiten</button>` : ''}
+                            </div>
                         </div>
-                        <p class="text-gray-700 leading-relaxed">${c.message}</p>
+                        <p class="text-gray-700 leading-relaxed message-content">${c.message}</p>
+                        ${c.edited ? '<span class="text-[10px] text-gray-300 italic block mt-1">(bearbeitet)</span>' : ''}
                     </div>
-                `).join('');
+                `}).join('');
+            }
+        };
+
+        // Expose Edit Mode globally for onclick
+        UI.enableEditMode = (id) => {
+            const container = document.getElementById(`comment-${id}`);
+            const p = container.querySelector('.message-content');
+            const originalText = p.innerText;
+            
+            container.innerHTML = `
+                <div class="space-y-2">
+                    <textarea id="edit-area-${id}" class="w-full text-sm border p-2 bg-white" rows="2">${originalText}</textarea>
+                    <div class="flex justify-end gap-2">
+                        <button onclick="UI.cancelEdit('${id}')" class="text-xs text-gray-500 uppercase tracking-wider">Abbrechen</button>
+                        <button onclick="UI.saveEdit('${id}')" class="text-xs bg-black text-white px-3 py-1 uppercase tracking-wider">Speichern</button>
+                    </div>
+                </div>
+            `;
+        };
+        
+        UI.cancelEdit = (id) => {
+            render(); // Just re-render list to restore
+        };
+
+        UI.saveEdit = (id) => {
+            const newText = document.getElementById(`edit-area-${id}`).value;
+            if(newText) {
+                DB.updateComment(id, newText);
+                render();
             }
         };
 
@@ -150,7 +210,20 @@ const UI = {
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            // Honeypot check
+            
+            // 1. Spam Protection (4 hours)
+            const lastCommentTime = localStorage.getItem('el_alem_last_comment_ts');
+            if (lastCommentTime) {
+                const diff = Date.now() - parseInt(lastCommentTime);
+                const fourHours = 4 * 60 * 60 * 1000;
+                
+                if (diff < fourHours) {
+                    alert('Spamschutz aktiv: Sie können nur alle 4 Stunden einen Kommentar verfassen.');
+                    return;
+                }
+            }
+
+            // 2. Honeypot check
             const honeypot = form.querySelector('input[name="website_url"]');
             if(honeypot && honeypot.value) {
                 console.warn('Bot detected via honeypot');
@@ -161,7 +234,16 @@ const UI = {
             const message = document.getElementById('comment-message').value;
 
             if(name && message) {
-                DB.addComment({ targetId, name, message });
+                const newComment = DB.addComment({ targetId, name, message });
+                
+                // Track locally for ownership/edit rights
+                const myComments = JSON.parse(localStorage.getItem('el_alem_my_comments') || '[]');
+                myComments.push(newComment.id);
+                localStorage.setItem('el_alem_my_comments', JSON.stringify(myComments));
+                
+                // Set Spam Protection Timer
+                localStorage.setItem('el_alem_last_comment_ts', Date.now().toString());
+
                 form.reset();
                 render();
             }

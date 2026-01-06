@@ -116,6 +116,8 @@ const ADMIN = {
             ADMIN.renderTextsList(content, db);
         } else if (view === '#requests') {
             ADMIN.renderRequestsList(content, db);
+        } else if (view === '#comments') {
+            ADMIN.renderCommentsList(content, db);
         }
     },
 
@@ -231,6 +233,32 @@ const ADMIN = {
         `;
     },
 
+    renderCommentsList: (container, db) => {
+        container.innerHTML = `
+             <h1 class="text-3xl font-serif mb-8">Kommentare</h1>
+             <div class="space-y-4">
+                ${(db.comments || []).map(c => {
+                    const work = db.works.find(w => w.id === c.targetId) || db.catalogues.find(cat => cat.id === c.targetId);
+                    const workTitle = work ? work.title : 'Unbekanntes Werk';
+                    const targetType = db.works.find(w => w.id === c.targetId) ? 'Werk' : 'Katalog';
+                    
+                    return `
+                    <div class="bg-white p-6 border border-gray-100 shadow-sm relative group">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-bold text-lg">${c.name}</h3>
+                                <div class="text-xs text-gray-400 uppercase mt-1">Zu: <span class="text-black font-medium">${workTitle}</span> (${targetType}) • ${new Date(c.date).toLocaleString()}</div>
+                            </div>
+                            <button onclick="ADMIN.deleteComment('${c.id}')" class="text-red-500 hover:text-red-700 text-xs uppercase tracking-widest border border-red-200 px-3 py-1 hover:bg-red-50 transition-colors">Löschen</button>
+                        </div>
+                        <p class="text-gray-700 bg-gray-50 p-4 rounded text-sm mt-3">${c.message}</p>
+                    </div>
+                `}).join('')}
+                ${(!db.comments || db.comments.length === 0) ? '<p class="text-gray-500">Keine Kommentare vorhanden.</p>' : ''}
+             </div>
+        `;
+    },
+
     renderTextsList: (container, db) => {
         container.innerHTML = `
             <div class="flex justify-between items-center mb-8">
@@ -314,6 +342,16 @@ const ADMIN = {
         db[type] = db[type].filter(i => i.id !== id);
         localStorage.setItem('el_alem_data', JSON.stringify(db));
         ADMIN.renderDashboard();
+    },
+
+    deleteComment: (id) => {
+        if(!confirm('Kommentar wirklich löschen?')) return;
+        const db = JSON.parse(localStorage.getItem('el_alem_data'));
+        if(db.comments) {
+            db.comments = db.comments.filter(c => c.id !== id);
+            localStorage.setItem('el_alem_data', JSON.stringify(db));
+            ADMIN.renderDashboard();
+        }
     },
 
     updateRequestStatus: (id, status) => {
