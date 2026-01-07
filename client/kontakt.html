@@ -1,145 +1,248 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Persönlicher Kontakt | El-Âlem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'serif'],
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Persönlicher Kontakt | El-Âlem</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="assets/style.css" />
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ["Montserrat", "sans-serif"],
+                            serif: ["Cormorant Garamond", "serif"],
+                        },
+                        colors: {
+                            "art-black": "#1a1a1a",
+                            "art-gray": "#f5f5f5",
+                        },
                     },
-                    colors: {
-                        'art-black': '#1a1a1a',
-                        'art-gray': '#f5f5f5',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-white pt-24">
+                },
+            };
+        </script>
+    </head>
+    <body class="bg-white pt-24">
+        <!-- Nav -->
+        <nav
+            class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-4 px-6 md:px-12 flex justify-between items-center text-black"
+        >
+            <a href="index.html" class="flex items-center gap-4">
+                <img
+                    src="assets/signature.png"
+                    class="h-10 w-auto invert-0"
+                    alt="El-Âlem Signature"
+                />
+            </a>
+            <div
+                class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium"
+            >
+                <a href="index.html" class="hover:opacity-70 transition-opacity"
+                    >Home</a
+                >
+                <a href="werke.html" class="hover:opacity-70 transition-opacity"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="hover:opacity-70 transition-opacity"
+                    >Kataloge</a
+                >
+            </div>
+            <a
+                href="index.html#contact"
+                class="hidden md:inline-block border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all"
+                >Kontakt</a
+            >
 
-    <!-- Nav -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-4 px-6 md:px-12 flex justify-between items-center text-black">
-        <a href="index.html" class="flex items-center gap-4">
-             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
-        </a>
-        <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium">
-            <a href="index.html" class="hover:opacity-70 transition-opacity">Home</a>
-            <a href="werke.html" class="hover:opacity-70 transition-opacity">Werke</a>
-            <a href="kataloge.html" class="hover:opacity-70 transition-opacity">Kataloge</a>
-        </div>
-        <a href="index.html#contact" class="hidden md:inline-block border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all">Kontakt</a>
+            <!-- Mobile Menu Button -->
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden text-current p-2 focus:outline-none"
+            >
+                <i class="ph ph-list text-3xl"></i>
+            </button>
+        </nav>
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-current p-2 focus:outline-none">
-            <i class="ph ph-list text-3xl"></i>
-        </button>
+        <main
+            class="py-12 px-6 md:px-12 max-w-4xl mx-auto min-h-[70vh] flex flex-col justify-center"
+        >
+            <div class="text-center mb-12">
+                <span
+                    class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-4"
+                    >Persönlicher Dialog</span
+                >
+                <h1 class="text-4xl md:text-6xl font-serif mb-6 leading-tight">
+                    Lassen Sie uns sprechen.
+                </h1>
+                <div class="w-12 h-1 bg-black mx-auto mb-8"></div>
+                <p
+                    class="text-xl font-serif italic text-gray-600 max-w-2xl mx-auto"
+                >
+                    "Wenn die Begeisterung auf Sie abgefärbt ist, schreiben Sie
+                    mir doch persönlich."
+                </p>
+            </div>
 
-    </nav>
+            <form
+                id="contact-form"
+                class="bg-gray-50 p-8 md:p-12 shadow-sm border border-gray-100 space-y-8"
+            >
+                <!-- Honeypot -->
+                <input
+                    type="text"
+                    name="website_url"
+                    class="hidden"
+                    tabindex="-1"
+                    autocomplete="off"
+                />
 
-    <main class="py-12 px-6 md:px-12 max-w-4xl mx-auto min-h-[70vh] flex flex-col justify-center">
-        <div class="text-center mb-12">
-            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-4">Persönlicher Dialog</span>
-            <h1 class="text-4xl md:text-6xl font-serif mb-6 leading-tight">Lassen Sie uns sprechen.</h1>
-            <div class="w-12 h-1 bg-black mx-auto mb-8"></div>
-            <p class="text-xl font-serif italic text-gray-600 max-w-2xl mx-auto">
-                "Wenn die Begeisterung auf Sie abgefärbt ist, schreiben Sie mir doch persönlich."
-            </p>
-        </div>
-
-        <form id="contact-form" class="bg-gray-50 p-8 md:p-12 shadow-sm border border-gray-100 space-y-8">
-            <!-- Honeypot -->
-            <input type="text" name="website_url" class="hidden" tabindex="-1" autocomplete="off">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Ihr Name</label>
-                    <input type="text" name="name" required 
-                        class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                            >Ihr Name</label
+                        >
+                        <input
+                            type="text"
+                            name="name"
+                            required
+                            class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors"
+                        />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                            >Ihre E-Mail</label
+                        >
+                        <input
+                            type="email"
+                            name="email"
+                            required
+                            class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors"
+                        />
+                    </div>
                 </div>
+
                 <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Ihre E-Mail</label>
-                    <input type="email" name="email" required 
-                        class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors">
+                    <label
+                        class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                        >Worum geht es?</label
+                    >
+                    <input
+                        type="text"
+                        name="subject"
+                        placeholder="z.B. Interesse an einem Werk, Kooperation..."
+                        class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors"
+                    />
                 </div>
-            </div>
-            
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Worum geht es?</label>
-                <input type="text" name="subject" placeholder="z.B. Interesse an einem Werk, Kooperation..." 
-                    class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors">
+
+                <div>
+                    <label
+                        class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                        >Ihre Nachricht an mich</label
+                    >
+                    <textarea
+                        name="message"
+                        rows="6"
+                        required
+                        class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors resize-none"
+                    ></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button
+                        type="submit"
+                        class="bg-black text-white px-12 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all transform hover:-translate-y-1 shadow-lg"
+                    >
+                        Nachricht Absenden
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <footer
+            class="mt-12 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider"
+        >
+            &copy; 2026 El-Âlem.
+            <a href="index.html" class="ml-4 hover:text-black">Home</a>
+        </footer>
+
+        <!-- Mobile Menu Overlay -->
+        <div
+            id="mobile-menu"
+            class="bg-white/70 fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300"
+        >
+            <!-- Logo Top-Left -->
+            <div class="absolute top-6 left-6">
+                <img
+                    src="assets/signature.png"
+                    class="h-10 w-auto invert-0"
+                    alt="El-Âlem Signature"
+                />
             </div>
 
-            <div>
-                <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Ihre Nachricht an mich</label>
-                <textarea name="message" rows="6" required 
-                    class="w-full bg-white border border-gray-200 p-4 focus:outline-none focus:border-black transition-colors resize-none"></textarea>
-            </div>
-            
-            <div class="text-center">
-                <button type="submit" class="bg-black text-white px-12 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all transform hover:-translate-y-1 shadow-lg">
-                    Nachricht Absenden
-                </button>
-            </div>
-        </form>
-    </main>
+            <!-- Close Button Top-Right -->
+            <button
+                id="mobile-menu-close"
+                class="absolute top-6 right-6 p-2 focus:outline-none text-black"
+            >
+                <i class="ph ph-x text-3xl"></i>
+            </button>
 
-    <footer class="mt-12 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider">
-        &copy; 2026 El-Âlem. <a href="index.html" class="ml-4 hover:text-black">Home</a>
-    </footer>
-
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300">
-        <!-- Logo Top-Left -->
-        <div class="absolute top-6 left-6">
-             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
+            <!-- Links Centered -->
+            <div
+                class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black"
+            >
+                <a
+                    href="index.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Home</a
+                >
+                <a
+                    href="werke.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kataloge</a
+                >
+                <a
+                    href="kontakt.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kontakt</a
+                >
+            </div>
         </div>
 
-        <!-- Close Button Top-Right -->
-        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none text-black">
-             <i class="ph ph-x text-3xl"></i>
-        </button>
-        
-        <!-- Links Centered -->
-        <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black">
-            <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
-            <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
-            <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
-            <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
-        </div>
-    </div>
+        <script src="assets/site.js"></script>
+        <script>
+            // Simple override for this specific form to ensure it works with existing logic but maybe custom message
+            const form = document.getElementById("contact-form");
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const btn = form.querySelector("button");
+                const originalText = btn.innerText;
+                btn.innerText = "Wird gesendet...";
 
-    <script src="assets/site.js"></script>
-    <script>
-        // Simple override for this specific form to ensure it works with existing logic but maybe custom message
-        const form = document.getElementById('contact-form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('button');
-            const originalText = btn.innerText;
-            btn.innerText = 'Wird gesendet...';
-            
-            // Honeypot check
-            if(form.querySelector('input[name="website_url"]').value) return;
+                // Honeypot check
+                if (form.querySelector('input[name="website_url"]').value)
+                    return;
 
-            setTimeout(() => {
-                btn.innerText = 'Vielen Dank für Ihre Nachricht!';
-                btn.classList.add('bg-green-700');
-                form.reset();
                 setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.classList.remove('bg-green-700');
-                }, 3000);
-            }, 1000);
-        });
-    </script>
-</body>
+                    btn.innerText = "Vielen Dank für Ihre Nachricht!";
+                    btn.classList.add("bg-green-700");
+                    form.reset();
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.classList.remove("bg-green-700");
+                    }, 3000);
+                }, 1000);
+            });
+        </script>
+    </body>
 </html>

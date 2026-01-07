@@ -1,94 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serie | El-Âlem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'serif'],
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Serie | El-Âlem</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="assets/style.css" />
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ["Montserrat", "sans-serif"],
+                            serif: ["Cormorant Garamond", "serif"],
+                        },
+                        colors: {
+                            "art-black": "#1a1a1a",
+                            "art-gray": "#f5f5f5",
+                        },
                     },
-                    colors: {
-                        'art-black': '#1a1a1a',
-                        'art-gray': '#f5f5f5',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-white pt-24">
-
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-4 px-6 md:px-12 flex justify-between items-center text-black">
-        <a href="index.html" class="flex items-center gap-4">
-             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
-        </a>
-        <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium">
-            <a href="index.html" class="hover:opacity-70 transition-opacity">Home</a>
-            <a href="werke.html" class="hover:opacity-70 transition-opacity">Werke</a>
-            <a href="kataloge.html" class="hover:opacity-70 transition-opacity">Kataloge</a>
-        </div>
-        <a href="index.html#contact" class="hidden md:inline-block border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all">Kontakt</a>
-
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-current p-2 focus:outline-none">
-            <i class="ph ph-list text-3xl"></i>
-        </button>
-
-    </nav>
-
-    <div id="serie-detail" class="max-w-7xl mx-auto px-6 md:px-12 py-12">
-        <div class="text-center max-w-3xl mx-auto mb-20">
-            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-4">Serie</span>
-            <h1 id="serie-title" class="text-5xl md:text-7xl font-serif mb-6">Loading...</h1>
-            <p id="serie-meta" class="text-sm tracking-widest text-gray-500 uppercase mb-8"></p>
-            <div class="w-12 h-1 bg-black mx-auto mb-8"></div>
-            <p id="serie-desc" class="text-gray-600 leading-relaxed text-lg"></p>
-        </div>
-
-        <div id="serie-works-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <!-- JS Renders here -->
-        </div>
-        
-        <div class="mt-24 text-center">
-            <a href="/#contact" class="bg-black text-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all">
-                Serie Anfragen
+                },
+            };
+        </script>
+    </head>
+    <body class="bg-white pt-24">
+        <nav
+            class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm py-4 px-6 md:px-12 flex justify-between items-center text-black"
+        >
+            <a href="index.html" class="flex items-center gap-4">
+                <img
+                    src="assets/signature.png"
+                    class="h-10 w-auto invert-0"
+                    alt="El-Âlem Signature"
+                />
             </a>
+            <div
+                class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium"
+            >
+                <a href="index.html" class="hover:opacity-70 transition-opacity"
+                    >Home</a
+                >
+                <a href="werke.html" class="hover:opacity-70 transition-opacity"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="hover:opacity-70 transition-opacity"
+                    >Kataloge</a
+                >
+            </div>
+            <a
+                href="index.html#contact"
+                class="hidden md:inline-block border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all"
+                >Kontakt</a
+            >
+
+            <!-- Mobile Menu Button -->
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden text-current p-2 focus:outline-none"
+            >
+                <i class="ph ph-list text-3xl"></i>
+            </button>
+        </nav>
+
+        <div id="serie-detail" class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span
+                    class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-4"
+                    >Serie</span
+                >
+                <h1
+                    id="serie-title"
+                    class="text-5xl md:text-7xl font-serif mb-6"
+                >
+                    Loading...
+                </h1>
+                <p
+                    id="serie-meta"
+                    class="text-sm tracking-widest text-gray-500 uppercase mb-8"
+                ></p>
+                <div class="w-12 h-1 bg-black mx-auto mb-8"></div>
+                <p
+                    id="serie-desc"
+                    class="text-gray-600 leading-relaxed text-lg"
+                ></p>
+            </div>
+
+            <div
+                id="serie-works-grid"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
+            >
+                <!-- JS Renders here -->
+            </div>
+
+            <div class="mt-24 text-center">
+                <a
+                    href="/#contact"
+                    class="bg-black text-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all"
+                >
+                    Serie Anfragen
+                </a>
+            </div>
         </div>
-    </div>
 
-    <footer class="mt-24 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider">
-        &copy; 2026 El-Âlem. <a href="index.html" class="ml-4 hover:text-black">Home</a>
-    </footer>
+        <footer
+            class="mt-24 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider"
+        >
+            &copy; 2026 El-Âlem.
+            <a href="index.html" class="ml-4 hover:text-black">Home</a>
+        </footer>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300">
-        <!-- Logo Top-Left -->
-        <div class="absolute top-6 left-6">
-             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
+        <!-- Mobile Menu Overlay -->
+        <div
+            id="mobile-menu"
+            class="bg-white/70 fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300"
+        >
+            <!-- Logo Top-Left -->
+            <div class="absolute top-6 left-6">
+                <img
+                    src="assets/signature.png"
+                    class="h-10 w-auto invert-0"
+                    alt="El-Âlem Signature"
+                />
+            </div>
+
+            <!-- Close Button Top-Right -->
+            <button
+                id="mobile-menu-close"
+                class="absolute top-6 right-6 p-2 focus:outline-none text-black"
+            >
+                <i class="ph ph-x text-3xl"></i>
+            </button>
+
+            <!-- Links Centered -->
+            <div
+                class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black"
+            >
+                <a
+                    href="index.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Home</a
+                >
+                <a
+                    href="werke.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kataloge</a
+                >
+                <a
+                    href="kontakt.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kontakt</a
+                >
+            </div>
         </div>
 
-        <!-- Close Button Top-Right -->
-        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none text-black">
-             <i class="ph ph-x text-3xl"></i>
-        </button>
-        
-        <!-- Links Centered -->
-        <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black">
-            <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
-            <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
-            <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
-            <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
-        </div>
-    </div>
-
-    <script src="assets/site.js"></script>
-</body>
+        <script src="assets/site.js"></script>
+    </body>
 </html>

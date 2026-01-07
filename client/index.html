@@ -1,219 +1,424 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erol / El-Âlem | Künstler Portfolio</title>
-    <meta name="description" content="Künstler-Portfolio von Erol / El-Âlem. Gemälde, Lichtkunst und Texte.">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'serif'],
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Erol / El-Âlem | Künstler Portfolio</title>
+        <meta
+            name="description"
+            content="Künstler-Portfolio von Erol / El-Âlem. Gemälde, Lichtkunst und Texte."
+        />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ["Montserrat", "sans-serif"],
+                            serif: ["Cormorant Garamond", "serif"],
+                        },
+                        colors: {
+                            "art-black": "#1a1a1a",
+                            "art-gray": "#f5f5f5",
+                        },
                     },
-                    colors: {
-                        'art-black': '#1a1a1a',
-                        'art-gray': '#f5f5f5',
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="assets/style.css">
-    
-    <!-- Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-</head>
-<body class="bg-white">
+                },
+            };
+        </script>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center text-white mix-blend-difference">
-        <a href="index.html" class="flex items-center gap-4">
-             <img src="assets/signature.png" class="nav-logo-img" alt="El-Âlem Signature">
-        </a>
-        <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium">
-            <a href="index.html" class="nav-link-shadow hover:opacity-70 transition-opacity">Home</a>
-            <a href="werke.html" class="nav-link-shadow hover:opacity-70 transition-opacity">Werke</a>
-            <a href="kataloge.html" class="nav-link-shadow hover:opacity-70 transition-opacity">Kataloge</a>
-        </div>
-        <a href="#contact" class="hidden md:inline-block nav-btn border border-white/50 px-5 py-2 text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all">Kontakt</a>
+        <!-- Custom Styles -->
+        <link rel="stylesheet" href="assets/style.css" />
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-current p-2 focus:outline-none">
-            <i class="ph ph-list text-3xl"></i>
-        </button>
-
-    </nav>
-
-    <!-- 1. Hero Slideshow -->
-    <header id="hero-slideshow" class="relative w-full h-screen overflow-hidden bg-black text-white">
-        <!-- Rendered by JS -->
-    </header>
-
-    <!-- 2. Über Erol / El-Âlem -->
-    <section id="about" class="py-24 md:py-32 px-6 md:px-24 bg-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-            
-            <!-- Portrait & Intro -->
-            <div class="space-y-8">
-                <div class="relative w-full aspect-[3/4] max-w-md mx-auto md:mx-0 overflow-hidden bg-gray-100">
-                    <img src="uploads/older_male_artist_po_bd6859aa.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Portrait Erol / El-Âlem">
-                </div>
-                <div class="max-w-md">
-                    <h2 class="text-3xl font-serif mb-4">Der Künstler</h2>
-                    <p class="text-gray-600 leading-relaxed font-light">
-                        El-Âlem sucht nicht das Abbild, sondern das Urbild. In seinen Werken verschwimmen die Grenzen zwischen Malerei und Skulptur, zwischen Licht und Dunkelheit. Er ist ein Reisender durch die Welten der Wahrnehmung.
-                    </p>
-                </div>
+        <!-- Icons -->
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    </head>
+    <body class="bg-white">
+        <!-- Navigation -->
+        <nav
+            class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 px-6 md:px-12 flex justify-between items-center text-white mix-blend-difference"
+        >
+            <a href="index.html" class="flex items-center gap-4">
+                <img
+                    src="assets/signature.png"
+                    class="nav-logo-img"
+                    alt="El-Âlem Signature"
+                />
+            </a>
+            <div
+                class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium"
+            >
+                <a
+                    href="index.html"
+                    class="nav-link-shadow hover:opacity-70 transition-opacity"
+                    >Home</a
+                >
+                <a
+                    href="werke.html"
+                    class="nav-link-shadow hover:opacity-70 transition-opacity"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="nav-link-shadow hover:opacity-70 transition-opacity"
+                    >Kataloge</a
+                >
             </div>
+            <a
+                href="#contact"
+                class="hidden md:inline-block nav-btn border border-white/50 px-5 py-2 text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all"
+                >Kontakt</a
+            >
 
-            <!-- Poem -->
-            <div class="font-serif text-lg md:text-xl leading-relaxed text-gray-800 space-y-8 pl-0 md:pl-12 border-l border-gray-100">
-                <div class="space-y-4 italic opacity-80">
-                    <p>Ich spiele<br>Mit Stift<br>Mit Pinsel<br>Mich zu fassen<br>Mich zu dichten<br>Mich zu färben</p>
-                    <p>Ich bin nicht der Baum<br>Ich bin nicht der Sturm<br>Das Meer nicht,<br>Das Feuer nicht<br>Doch ich erlebe<br>Die Sonne, die Sterne, das Meer,<br>Das Grün, das Tier, den Staub<br>Das Dunkle, Ganze und Gebrochene<br>Mit Leib und Seele</p>
-                    <p>Aha<br>Ich bin aus dem Spinnennetz<br>Aus Worten, Farben und Formen<br>Blitzschnell, sonnenhell</p>
-                    <p>In eine Wahrheit gerutscht<br>Ich habe sie ins Wort gefasst<br>Das Wort ins Bild gebracht<br>Das Bild auf den Kopf gestellt<br>Und habe ihr einen Rahmen verpasst<br>Sie, sie erfüllt den Raum<br>Und schiebt mich aus dem Rahmen hinaus</p>
-                    <p>Ja<br>Ich erlebe und erkenne mich<br>Mit Niederlagen, Schmerzen<br>Verlusten und Ängsten<br>Zu meiner Freude und Leid<br>Immer mit Selbst-­‐Gewinn: aus<br>Wort und Farbe und Form neu geboren:</p>
-                    <p class="font-bold not-italic text-2xl mt-8">ICH BIN URHEBER MEINES SELBST</p>
-                    <p class="mt-4">— El-Âlem</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <!-- Mobile Menu Button -->
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden text-current p-2 focus:outline-none"
+            >
+                <i class="ph ph-list text-3xl"></i>
+            </button>
+        </nav>
 
-    <!-- 3. Neueste Werke Grid -->
-    <section id="works" class="py-24 px-6 md:px-12 bg-gray-50">
-        <div class="max-w-7xl mx-auto mb-16 flex justify-between items-end">
-            <div>
-                <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2">Portfolio</span>
-                <h2 class="text-4xl font-serif">Neueste Werke</h2>
-            </div>
-            <a href="werke.html" class="hidden md:inline-block text-xs font-bold tracking-widest uppercase border-b border-black pb-1 hover:text-gray-600 hover:border-gray-400 transition-colors">Alle Werke ansehen</a>
-        </div>
-        
-        <div id="new-works-grid" class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- 1. Hero Slideshow -->
+        <header
+            id="hero-slideshow"
+            class="relative w-full h-screen overflow-hidden bg-black text-white"
+        >
             <!-- Rendered by JS -->
-        </div>
-        
-        <div class="mt-12 text-center md:hidden">
-            <a href="werke.html" class="inline-block text-xs font-bold tracking-widest uppercase border-b border-black pb-1">Alle Werke ansehen</a>
-        </div>
-    </section>
+        </header>
 
-    <!-- 4. Spotlight Serie 1 -->
-    <section id="spotlight-1" class="py-24 px-6 md:px-24 bg-white">
-        <!-- Rendered by JS -->
-    </section>
-
-    <!-- 5. Spotlight Serie 2 -->
-    <section id="spotlight-2" class="py-24 px-6 md:px-24 bg-gray-50 border-t border-gray-100">
-        <!-- Rendered by JS -->
-    </section>
-
-    <!-- 6. Texte & Kataloge -->
-    <section id="catalogues" class="py-24 px-6 md:px-24 bg-white">
-        <div class="max-w-7xl mx-auto text-center mb-16">
-            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2">Publikationen</span>
-            <h2 class="text-4xl font-serif">Kataloge & Texte</h2>
-        </div>
-        
-        <div id="catalogues-grid" class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-12">
-            <!-- Rendered by JS -->
-        </div>
-    </section>
-
-    <!-- 7. Kontakt -->
-    <section id="contact" class="py-24 px-6 md:px-24 bg-white text-black">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-serif mb-8">Kontakt & Kooperation</h2>
-            <p class="text-gray-500 mb-12 font-light max-w-xl mx-auto">
-                Haben Sie Interesse an einem Werk, einer Kooperation oder möchten Sie eine Ausstellung organisieren?
-            </p>
-            
-            <form id="contact-form" class="max-w-lg mx-auto space-y-6 text-left">
-                <!-- Honeypot -->
-                <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off">
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Name</label>
-                        <input type="text" name="name" required class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors">
+        <!-- 2. Über Erol / El-Âlem -->
+        <section
+            id="about"
+            class="py-24 md:py-32 px-6 md:px-24 bg-white relative overflow-hidden"
+        >
+            <div
+                class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start"
+            >
+                <!-- Portrait & Intro -->
+                <div class="space-y-8">
+                    <div
+                        class="relative w-full aspect-[3/4] max-w-md mx-auto md:mx-0 overflow-hidden bg-gray-100"
+                    >
+                        <img
+                            src="uploads/older_male_artist_po_bd6859aa.jpg"
+                            class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                            alt="Portrait Erol / El-Âlem"
+                        />
                     </div>
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">E-Mail</label>
-                        <input type="email" name="email" required class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors">
+                    <div class="max-w-md">
+                        <h2 class="text-3xl font-serif mb-4">Der Künstler</h2>
+                        <p class="text-gray-600 leading-relaxed font-light">
+                            El-Âlem sucht nicht das Abbild, sondern das Urbild.
+                            In seinen Werken verschwimmen die Grenzen zwischen
+                            Malerei und Skulptur, zwischen Licht und Dunkelheit.
+                            Er ist ein Reisender durch die Welten der
+                            Wahrnehmung.
+                        </p>
                     </div>
                 </div>
-                
-                <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Grund der Anfrage</label>
-                    <select name="reason" class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors appearance-none">
-                        <option value="Kaufinteresse" class="text-black">Kaufinteresse (Werk/Serie)</option>
-                        <option value="Kooperation" class="text-black">Kooperation / Ausstellung</option>
-                        <option value="Presse" class="text-black">Presse</option>
-                        <option value="Sonstiges" class="text-black">Sonstiges</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2">Nachricht</label>
-                    <textarea name="message" rows="4" required class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors"></textarea>
-                </div>
-                
-                <div class="flex items-center space-x-3">
-                    <input type="checkbox" id="human" required class="w-4 h-4 border-gray-300">
-                    <label for="human" class="text-xs text-gray-400">Ich bin ein Mensch und stimme der Datenspeicherung zu.</label>
-                </div>
 
-                <button type="submit" class="w-full bg-black text-white font-bold uppercase tracking-widest py-4 hover:bg-gray-800 transition-colors">
-                    Nachricht Senden
-                </button>
-            </form>
-        </div>
-        
-        <div class="max-w-7xl mx-auto mt-24 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 uppercase tracking-wider">
-            <div class="flex items-center gap-4">
-                 <img src="assets/signature.png" id="footer-signature" class="h-8 w-auto opacity-50" alt="Signature">
-                 <span>&copy; 2026 El-Âlem. Alle Rechte vorbehalten.</span>
+                <!-- Poem -->
+                <div
+                    class="font-serif text-lg md:text-xl leading-relaxed text-gray-800 space-y-8 pl-0 md:pl-12 border-l border-gray-100"
+                >
+                    <div class="space-y-4 italic opacity-80">
+                        <p>
+                            Ich spiele<br />Mit Stift<br />Mit Pinsel<br />Mich
+                            zu fassen<br />Mich zu dichten<br />Mich zu färben
+                        </p>
+                        <p>
+                            Ich bin nicht der Baum<br />Ich bin nicht der
+                            Sturm<br />Das Meer nicht,<br />Das Feuer nicht<br />Doch
+                            ich erlebe<br />Die Sonne, die Sterne, das Meer,<br />Das
+                            Grün, das Tier, den Staub<br />Das Dunkle, Ganze und
+                            Gebrochene<br />Mit Leib und Seele
+                        </p>
+                        <p>
+                            Aha<br />Ich bin aus dem Spinnennetz<br />Aus
+                            Worten, Farben und Formen<br />Blitzschnell,
+                            sonnenhell
+                        </p>
+                        <p>
+                            In eine Wahrheit gerutscht<br />Ich habe sie ins
+                            Wort gefasst<br />Das Wort ins Bild gebracht<br />Das
+                            Bild auf den Kopf gestellt<br />Und habe ihr einen
+                            Rahmen verpasst<br />Sie, sie erfüllt den Raum<br />Und
+                            schiebt mich aus dem Rahmen hinaus
+                        </p>
+                        <p>
+                            Ja<br />Ich erlebe und erkenne mich<br />Mit
+                            Niederlagen, Schmerzen<br />Verlusten und Ängsten<br />Zu
+                            meiner Freude und Leid<br />Immer mit
+                            Selbst-­‐Gewinn: aus<br />Wort und Farbe und Form
+                            neu geboren:
+                        </p>
+                        <p class="font-bold not-italic text-2xl mt-8">
+                            ICH BIN URHEBER MEINES SELBST
+                        </p>
+                        <p class="mt-4">— El-Âlem</p>
+                    </div>
+                </div>
             </div>
-            <div class="space-x-6 mt-4 md:mt-0">
-                <a href="impressum.html" class="hover:text-black transition-colors">Impressum</a>
-                <a href="datenschutz.html" class="hover:text-black transition-colors">Datenschutz</a>
-                <a href="admin/login.html" class="hover:text-black transition-colors">Admin Login</a>
+        </section>
+
+        <!-- 3. Neueste Werke Grid -->
+        <section id="works" class="py-24 px-6 md:px-12 bg-gray-50">
+            <div class="max-w-7xl mx-auto mb-16 flex justify-between items-end">
+                <div>
+                    <span
+                        class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2"
+                        >Portfolio</span
+                    >
+                    <h2 class="text-4xl font-serif">Neueste Werke</h2>
+                </div>
+                <a
+                    href="werke.html"
+                    class="hidden md:inline-block text-xs font-bold tracking-widest uppercase border-b border-black pb-1 hover:text-gray-600 hover:border-gray-400 transition-colors"
+                    >Alle Werke ansehen</a
+                >
+            </div>
+
+            <div
+                id="new-works-grid"
+                class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            >
+                <!-- Rendered by JS -->
+            </div>
+
+            <div class="mt-12 text-center md:hidden">
+                <a
+                    href="werke.html"
+                    class="inline-block text-xs font-bold tracking-widest uppercase border-b border-black pb-1"
+                    >Alle Werke ansehen</a
+                >
+            </div>
+        </section>
+
+        <!-- 4. Spotlight Serie 1 -->
+        <section id="spotlight-1" class="py-24 px-6 md:px-24 bg-white">
+            <!-- Rendered by JS -->
+        </section>
+
+        <!-- 5. Spotlight Serie 2 -->
+        <section
+            id="spotlight-2"
+            class="py-24 px-6 md:px-24 bg-gray-50 border-t border-gray-100"
+        >
+            <!-- Rendered by JS -->
+        </section>
+
+        <!-- 6. Texte & Kataloge -->
+        <section id="catalogues" class="py-24 px-6 md:px-24 bg-white">
+            <div class="max-w-7xl mx-auto text-center mb-16">
+                <span
+                    class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase block mb-2"
+                    >Publikationen</span
+                >
+                <h2 class="text-4xl font-serif">Kataloge & Texte</h2>
+            </div>
+
+            <div
+                id="catalogues-grid"
+                class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-12"
+            >
+                <!-- Rendered by JS -->
+            </div>
+        </section>
+
+        <!-- 7. Kontakt -->
+        <section id="contact" class="py-24 px-6 md:px-24 bg-white text-black">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-serif mb-8">
+                    Kontakt & Kooperation
+                </h2>
+                <p class="text-gray-500 mb-12 font-light max-w-xl mx-auto">
+                    Haben Sie Interesse an einem Werk, einer Kooperation oder
+                    möchten Sie eine Ausstellung organisieren?
+                </p>
+
+                <form
+                    id="contact-form"
+                    class="max-w-lg mx-auto space-y-6 text-left"
+                >
+                    <!-- Honeypot -->
+                    <input
+                        type="text"
+                        name="website"
+                        class="hidden"
+                        tabindex="-1"
+                        autocomplete="off"
+                    />
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label
+                                class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                                >Name</label
+                            >
+                            <input
+                                type="text"
+                                name="name"
+                                required
+                                class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                                >E-Mail</label
+                            >
+                            <input
+                                type="email"
+                                name="email"
+                                required
+                                class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                            >Grund der Anfrage</label
+                        >
+                        <select
+                            name="reason"
+                            class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors appearance-none"
+                        >
+                            <option value="Kaufinteresse" class="text-black">
+                                Kaufinteresse (Werk/Serie)
+                            </option>
+                            <option value="Kooperation" class="text-black">
+                                Kooperation / Ausstellung
+                            </option>
+                            <option value="Presse" class="text-black">
+                                Presse
+                            </option>
+                            <option value="Sonstiges" class="text-black">
+                                Sonstiges
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs uppercase tracking-widest text-gray-400 mb-2"
+                            >Nachricht</label
+                        >
+                        <textarea
+                            name="message"
+                            rows="4"
+                            required
+                            class="w-full bg-gray-50 border border-gray-200 p-3 focus:outline-none focus:border-black transition-colors"
+                        ></textarea>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <input
+                            type="checkbox"
+                            id="human"
+                            required
+                            class="w-4 h-4 border-gray-300"
+                        />
+                        <label for="human" class="text-xs text-gray-400"
+                            >Ich bin ein Mensch und stimme der Datenspeicherung
+                            zu.</label
+                        >
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-black text-white font-bold uppercase tracking-widest py-4 hover:bg-gray-800 transition-colors"
+                    >
+                        Nachricht Senden
+                    </button>
+                </form>
+            </div>
+
+            <div
+                class="max-w-7xl mx-auto mt-24 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 uppercase tracking-wider"
+            >
+                <div class="flex items-center gap-4">
+                    <img
+                        src="assets/signature.png"
+                        id="footer-signature"
+                        class="h-8 w-auto opacity-50"
+                        alt="Signature"
+                    />
+                    <span>&copy; 2026 El-Âlem. Alle Rechte vorbehalten.</span>
+                </div>
+                <div class="space-x-6 mt-4 md:mt-0">
+                    <a
+                        href="impressum.html"
+                        class="hover:text-black transition-colors"
+                        >Impressum</a
+                    >
+                    <a
+                        href="datenschutz.html"
+                        class="hover:text-black transition-colors"
+                        >Datenschutz</a
+                    >
+                    <a
+                        href="admin/login.html"
+                        class="hover:text-black transition-colors"
+                        >Admin Login</a
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile Menu Overlay -->
+        <div
+            id="mobile-menu"
+            class="bg-white/70 fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300"
+        >
+            <!-- Logo Top-Left -->
+            <div class="absolute top-6 left-6">
+                <img
+                    src="assets/signature.png"
+                    class="h-10 w-auto invert-0"
+                    alt="El-Âlem Signature"
+                />
+            </div>
+
+            <!-- Close Button Top-Right -->
+            <button
+                id="mobile-menu-close"
+                class="absolute top-6 right-6 p-2 focus:outline-none text-black"
+            >
+                <i class="ph ph-x text-3xl"></i>
+            </button>
+
+            <!-- Links Centered -->
+            <div
+                class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black"
+            >
+                <a
+                    href="index.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Home</a
+                >
+                <a
+                    href="werke.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kataloge</a
+                >
+                <a
+                    href="kontakt.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kontakt</a
+                >
             </div>
         </div>
-    </section>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300">
-        <!-- Logo Top-Left -->
-        <div class="absolute top-6 left-6">
-             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
-        </div>
-
-        <!-- Close Button Top-Right -->
-        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none text-black">
-             <i class="ph ph-x text-3xl"></i>
-        </button>
-        
-        <!-- Links Centered -->
-        <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black">
-            <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
-            <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
-            <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
-            <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="assets/site.js"></script>
-</body>
+        <!-- Scripts -->
+        <script src="assets/site.js"></script>
+    </body>
 </html>

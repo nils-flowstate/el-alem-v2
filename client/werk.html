@@ -1,140 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Werk Detail | El-Âlem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'serif'],
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Werk Detail | El-Âlem</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="assets/style.css" />
+        <script src="https://unpkg.com/@phosphor-icons/web"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ["Montserrat", "sans-serif"],
+                            serif: ["Cormorant Garamond", "serif"],
+                        },
+                        colors: {
+                            "art-black": "#1a1a1a",
+                            "art-gray": "#f5f5f5",
+                        },
                     },
-                    colors: {
-                        'art-black': '#1a1a1a',
-                        'art-gray': '#f5f5f5',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-white pt-24">
+                },
+            };
+        </script>
+    </head>
+    <body class="bg-white pt-24">
+        <nav
+            class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm py-4 px-6 md:px-12 flex justify-between items-center text-black"
+        >
+            <a href="index.html" class="flex items-center gap-4">
+                <img
+                    src="assets/signature.png"
+                    class="h-10 w-auto invert-0"
+                    alt="El-Âlem Signature"
+                />
+            </a>
+            <div
+                class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium"
+            >
+                <a href="index.html" class="hover:opacity-70 transition-opacity"
+                    >Home</a
+                >
+                <a href="werke.html" class="hover:opacity-70 transition-opacity"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="hover:opacity-70 transition-opacity"
+                    >Kataloge</a
+                >
+            </div>
+            <a
+                href="index.html#contact"
+                class="hidden md:inline-block border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all"
+                >Kontakt</a
+            >
 
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm py-4 px-6 md:px-12 flex justify-between items-center text-black">
-        <a href="index.html" class="flex items-center gap-4">
-             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
-        </a>
-        <div class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-medium">
-            <a href="index.html" class="hover:opacity-70 transition-opacity">Home</a>
-            <a href="werke.html" class="hover:opacity-70 transition-opacity">Werke</a>
-            <a href="kataloge.html" class="hover:opacity-70 transition-opacity">Kataloge</a>
-        </div>
-        <a href="index.html#contact" class="hidden md:inline-block border border-black px-5 py-2 text-xs tracking-widest uppercase hover:bg-black hover:text-white transition-all">Kontakt</a>
+            <!-- Mobile Menu Button -->
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden text-current p-2 focus:outline-none"
+            >
+                <i class="ph ph-list text-3xl"></i>
+            </button>
+        </nav>
 
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-current p-2 focus:outline-none">
-            <i class="ph ph-list text-3xl"></i>
-        </button>
+        <div id="werk-detail" class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Big Image -->
+                <div class="lg:col-span-8 space-y-12">
+                    <div class="bg-gray-50" id="werk-image-container">
+                        <img
+                            id="werk-image"
+                            src=""
+                            class="w-full h-auto object-contain max-h-[85vh] mx-auto shadow-sm"
+                            alt="Werk"
+                        />
+                    </div>
 
-    </nav>
-
-    <div id="werk-detail" class="max-w-7xl mx-auto px-6 md:px-12 py-12">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
-            <!-- Big Image -->
-            <div class="lg:col-span-8 space-y-12">
-                <div class="bg-gray-50" id="werk-image-container">
-                    <img id="werk-image" src="" class="w-full h-auto object-contain max-h-[85vh] mx-auto shadow-sm" alt="Werk">
+                    <!-- Comments List (Moved here) -->
+                    <div class="pt-8 border-t border-gray-100">
+                        <h3 class="font-serif text-2xl mb-6">
+                            Gedanken zum Werk
+                        </h3>
+                        <div
+                            id="comments-list"
+                            class="space-y-6 mb-8 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar"
+                        >
+                            <!-- Rendered by JS -->
+                            <p class="text-sm text-gray-400 italic">
+                                Noch keine Kommentare.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Comments List (Moved here) -->
-                <div class="pt-8 border-t border-gray-100">
-                    <h3 class="font-serif text-2xl mb-6">Gedanken zum Werk</h3>
-                    <div id="comments-list" class="space-y-6 mb-8 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-                        <!-- Rendered by JS -->
-                        <p class="text-sm text-gray-400 italic">Noch keine Kommentare.</p>
+                <!-- Details -->
+                <div class="lg:col-span-4 sticky top-32 space-y-8">
+                    <div>
+                        <h1
+                            id="werk-title"
+                            class="text-4xl md:text-5xl font-serif mb-6 leading-tight"
+                        >
+                            Loading...
+                        </h1>
+                        <div class="w-12 h-1 bg-black mb-6"></div>
+                        <div id="werk-meta"></div>
+                    </div>
+
+                    <div class="pt-8 border-t border-gray-100">
+                        <a
+                            id="inquiry-btn"
+                            href="#"
+                            class="block w-full text-center bg-black text-white px-6 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all mb-4"
+                        >
+                            Preis Anfragen
+                        </a>
+                        <p class="text-xs text-center text-gray-400">
+                            Weltweiter Versand möglich.
+                        </p>
+                    </div>
+
+                    <!-- Personal Contact CTA -->
+                    <div
+                        class="bg-gray-50 p-6 border border-gray-200 text-center space-y-4"
+                    >
+                        <p class="font-serif italic text-lg text-gray-600">
+                            "Wenn die Begeisterung auf Sie abgefärbt ist,
+                            schreiben Sie mir doch persönlich."
+                        </p>
+                        <a
+                            href="kontakt.html"
+                            class="inline-block border-b border-black pb-1 text-xs font-bold uppercase tracking-widest hover:opacity-50 transition-opacity"
+                        >
+                            Persönliche Nachricht schreiben
+                        </a>
+                    </div>
+
+                    <!-- Comment Form (Remains here) -->
+                    <div class="pt-8 border-t border-gray-100">
+                        <h3 class="font-serif text-xl mb-6">
+                            Kommentar schreiben
+                        </h3>
+                        <form id="comment-form" class="space-y-4">
+                            <!-- Honeypot for spam protection -->
+                            <input
+                                type="text"
+                                name="website_url"
+                                class="hidden"
+                                tabindex="-1"
+                                autocomplete="off"
+                            />
+
+                            <div>
+                                <input
+                                    type="text"
+                                    id="comment-name"
+                                    placeholder="Ihr Name"
+                                    required
+                                    class="w-full border-b border-gray-300 py-2 text-sm focus:outline-none focus:border-black transition-colors bg-transparent"
+                                />
+                            </div>
+                            <div>
+                                <textarea
+                                    id="comment-message"
+                                    rows="3"
+                                    placeholder="Ihr Kommentar..."
+                                    required
+                                    class="w-full border-b border-gray-300 py-2 text-sm focus:outline-none focus:border-black transition-colors bg-transparent resize-none"
+                                ></textarea>
+                            </div>
+                            <button
+                                type="submit"
+                                class="text-xs font-bold uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity"
+                            >
+                                Senden
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Details -->
-            <div class="lg:col-span-4 sticky top-32 space-y-8">
-                <div>
-                    <h1 id="werk-title" class="text-4xl md:text-5xl font-serif mb-6 leading-tight">Loading...</h1>
-                    <div class="w-12 h-1 bg-black mb-6"></div>
-                    <div id="werk-meta"></div>
-                </div>
+        <footer
+            class="mt-24 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider"
+        >
+            &copy; 2026 El-Âlem.
+            <a href="index.html" class="ml-4 hover:text-black">Home</a>
+        </footer>
 
-                <div class="pt-8 border-t border-gray-100">
-                    <a id="inquiry-btn" href="#" class="block w-full text-center bg-black text-white px-6 py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all mb-4">
-                        Preis Anfragen
-                    </a>
-                    <p class="text-xs text-center text-gray-400">Weltweiter Versand möglich.</p>
-                </div>
+        <!-- Mobile Menu Overlay -->
+        <div
+            id="mobile-menu"
+            class="bg-white/70 fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300"
+        >
+            <!-- Logo Top-Left -->
+            <div class="absolute top-6 left-6">
+                <img
+                    src="assets/signature.png"
+                    class="h-10 w-auto invert-0"
+                    alt="El-Âlem Signature"
+                />
+            </div>
 
-                <!-- Personal Contact CTA -->
-                <div class="bg-gray-50 p-6 border border-gray-200 text-center space-y-4">
-                    <p class="font-serif italic text-lg text-gray-600">"Wenn die Begeisterung auf Sie abgefärbt ist, schreiben Sie mir doch persönlich."</p>
-                    <a href="kontakt.html" class="inline-block border-b border-black pb-1 text-xs font-bold uppercase tracking-widest hover:opacity-50 transition-opacity">
-                        Persönliche Nachricht schreiben
-                    </a>
-                </div>
+            <!-- Close Button Top-Right -->
+            <button
+                id="mobile-menu-close"
+                class="absolute top-6 right-6 p-2 focus:outline-none text-black"
+            >
+                <i class="ph ph-x text-3xl"></i>
+            </button>
 
-                <!-- Comment Form (Remains here) -->
-                <div class="pt-8 border-t border-gray-100">
-                    <h3 class="font-serif text-xl mb-6">Kommentar schreiben</h3>
-                    <form id="comment-form" class="space-y-4">
-                        <!-- Honeypot for spam protection -->
-                        <input type="text" name="website_url" class="hidden" tabindex="-1" autocomplete="off">
-                        
-                        <div>
-                            <input type="text" id="comment-name" placeholder="Ihr Name" required
-                                class="w-full border-b border-gray-300 py-2 text-sm focus:outline-none focus:border-black transition-colors bg-transparent">
-                        </div>
-                        <div>
-                            <textarea id="comment-message" rows="3" placeholder="Ihr Kommentar..." required
-                                class="w-full border-b border-gray-300 py-2 text-sm focus:outline-none focus:border-black transition-colors bg-transparent resize-none"></textarea>
-                        </div>
-                        <button type="submit" class="text-xs font-bold uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity">
-                            Senden
-                        </button>
-                    </form>
-                </div>
+            <!-- Links Centered -->
+            <div
+                class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black"
+            >
+                <a
+                    href="index.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Home</a
+                >
+                <a
+                    href="werke.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Werke</a
+                >
+                <a
+                    href="kataloge.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kataloge</a
+                >
+                <a
+                    href="kontakt.html"
+                    class="hover:text-gray-500 transition-colors"
+                    >Kontakt</a
+                >
             </div>
         </div>
-    </div>
 
-    <footer class="mt-24 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider">
-        &copy; 2026 El-Âlem. <a href="index.html" class="ml-4 hover:text-black">Home</a>
-    </footer>
-
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300">
-        <!-- Logo Top-Left -->
-        <div class="absolute top-6 left-6">
-             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
-        </div>
-
-        <!-- Close Button Top-Right -->
-        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none text-black">
-             <i class="ph ph-x text-3xl"></i>
-        </button>
-        
-        <!-- Links Centered -->
-        <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black">
-            <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
-            <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
-            <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
-            <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
-        </div>
-    </div>
-
-    <script src="assets/site.js"></script>
-</body>
+        <script src="assets/site.js"></script>
+    </body>
 </html>
