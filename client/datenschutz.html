@@ -24,23 +24,6 @@
             <i class="ph ph-list text-3xl"></i>
         </button>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden fixed inset-0 bg-white text-black z-[60] flex flex-col items-center justify-center space-y-8 transition-all duration-300">
-            <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none">
-                 <i class="ph ph-x text-3xl"></i>
-            </button>
-            
-            <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif">
-                <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
-                <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
-                <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
-                <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
-            </div>
-            
-            <div class="absolute bottom-12 opacity-50">
-                <img src="assets/signature.png" class="h-8 w-auto invert-0" alt="Signature">
-            </div>
-        </div>
     </nav>
     <div class="max-w-2xl mx-auto py-12 prose font-sans">
         <h1 class="font-serif">Datenschutzerklärung</h1>
@@ -50,5 +33,27 @@
         <h3>Kontaktformular</h3>
         <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.</p>
     </div>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300">
+        <!-- Logo Top-Left -->
+        <div class="absolute top-6 left-6">
+             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
+        </div>
+
+        <!-- Close Button Top-Right -->
+        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none text-black">
+             <i class="ph ph-x text-3xl"></i>
+        </button>
+        
+        <!-- Links Centered -->
+        <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black">
+            <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
+            <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
+            <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
+            <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
+        </div>
+    </div>
+
+    <script src="assets/site.js"></script>
 </body>
 </html>

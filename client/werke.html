@@ -43,23 +43,6 @@
             <i class="ph ph-list text-3xl"></i>
         </button>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden fixed inset-0 bg-white text-black z-[60] flex flex-col items-center justify-center space-y-8 transition-all duration-300">
-            <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none">
-                 <i class="ph ph-x text-3xl"></i>
-            </button>
-            
-            <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif">
-                <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
-                <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
-                <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
-                <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
-            </div>
-            
-            <div class="absolute bottom-12 opacity-50">
-                <img src="assets/signature.png" class="h-8 w-auto invert-0" alt="Signature">
-            </div>
-        </div>
     </nav>
 
     <main class="py-12 px-6 md:px-12 max-w-7xl mx-auto">
@@ -104,6 +87,27 @@
     <footer class="mt-24 py-8 border-t border-gray-100 text-center text-xs text-gray-400 uppercase tracking-wider">
         &copy; 2026 El-Âlem. <a href="index.html" class="ml-4 hover:text-black">Home</a>
     </footer>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-[9999] flex flex-col items-center justify-center transition-all duration-300">
+        <!-- Logo Top-Left -->
+        <div class="absolute top-6 left-6">
+             <img src="assets/signature.png" class="h-10 w-auto invert-0" alt="El-Âlem Signature">
+        </div>
+
+        <!-- Close Button Top-Right -->
+        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 focus:outline-none text-black">
+             <i class="ph ph-x text-3xl"></i>
+        </button>
+        
+        <!-- Links Centered -->
+        <div class="flex flex-col items-center space-y-8 text-xl tracking-[0.2em] uppercase font-serif text-black">
+            <a href="index.html" class="hover:text-gray-500 transition-colors">Home</a>
+            <a href="werke.html" class="hover:text-gray-500 transition-colors">Werke</a>
+            <a href="kataloge.html" class="hover:text-gray-500 transition-colors">Kataloge</a>
+            <a href="kontakt.html" class="hover:text-gray-500 transition-colors">Kontakt</a>
+        </div>
+    </div>
 
     <script src="assets/site.js"></script>
 </body>
