@@ -121,6 +121,9 @@ const UI = {
         if (document.getElementById('catalogues-grid')) UI.renderCatalogues();
         if (document.getElementById('contact-form')) UI.setupContactForm();
 
+        // Mobile Menu
+        UI.setupMobileMenu();
+
         // Subpages
         if (document.getElementById('all-works-grid')) UI.renderAllWorks();
         if (document.getElementById('serie-detail')) UI.renderSerieDetail();
@@ -247,6 +250,33 @@ const UI = {
                 form.reset();
                 render();
             }
+        });
+    },
+
+    setupMobileMenu: () => {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('mobile-menu-close');
+        
+        if(!btn || !menu) return;
+
+        const toggleMenu = () => {
+            const isHidden = menu.classList.contains('hidden');
+            if(isHidden) {
+                menu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                menu.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        };
+
+        btn.addEventListener('click', toggleMenu);
+        if(closeBtn) closeBtn.addEventListener('click', toggleMenu);
+        
+        // Close on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
         });
     },
 
